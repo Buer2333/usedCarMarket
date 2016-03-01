@@ -15,13 +15,12 @@ Used-car Market
 	// 需要browserify和http-server支持，请全局安装
 	cnpm install -g http-server browserify
 	// 克隆项目,或者使用webstorm
-	git clone https://git.coding.net/bringdy/work.git
+	git clone https://git.coding.net/alanqqz/usedCarMarket.git
 	// 安装依赖模块
 	npm install
 	// 启动http-server,默认端口为：8080
 	npm start
-	// js生成命令
-	browserify 待生成 -o 生成目标文件
+
 	
 #### 统一结构目录
 - js/ 
