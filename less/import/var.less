@@ -1,0 +1,58 @@
+// Vars
+@blue : #5dbcff;
+@gray : #dedede;
+
+// Mixins
+.rounded (@radius) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.border (@direction,@color:#000,@px:1px,@style:solid) when (@direction=left) {
+  border-left: @px @style @color;
+}
+
+.border (@direction,@color:#000,@px:1px,@style:solid) when (@direction=right) {
+  border-right: @px @style @color;
+}
+
+.border (@direction,@color:#000,@px:1px,@style:solid) when (@direction=top) {
+  border-top: @px @style @color;
+}
+
+.border (@direction,@color:#000,@px:1px,@style:solid) when (@direction=bottom) {
+  border-bottom: @px @style @color;
+}
+
+.border (@direction,@color:#000,@px:1px,@style:solid) when (@direction=all) {
+  border: @px @style @color;
+}
+
+.border (@direction,@color:#000,@px:1px,@style:solid) when (@direction=lr) {
+  border-right: @px @style @color;
+  border-left: @px @style @color;
+}
+
+.border (@direction,@color:#000,@px:1px,@style:solid) when (@direction=tb) {
+  border-top: @px @style @color;
+  border-bottom: @px @style @color;
+}
+
+.width(@width) {
+  margin: 0 auto;
+  width: @width;
+}
+
+.hLine(@height,@lHeight:@height){
+  height:@height;
+  line-height:@lHeight;
+}
+.imgPhoto(@height:40px,@width:@height,@border:1px solid #fff,@border-radius:50px){
+  height:@height;
+  width: @width;
+  border:@border;
+  border-radius:@border-radius;
+}
