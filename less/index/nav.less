@@ -1,7 +1,48 @@
 nav{
   .hLine(90px);
-  background: #333;
+  background: #111;
   width: 100%;
   position: absolute;
   top: 60px;
+  z-index: 1;
+  overflow: hidden;
+  h1,>div{
+    display: inline-block;
+  }
+  >h1{
+    margin:6px 25px;
+    a{
+      img{
+        height: 70px;
+        width: 250px;
+      }
+    }
+  }
+  >div{
+    float: right;
+    margin-right: 80px;
+    >ul{
+      margin-bottom: 0;
+      li{
+        display: inline-block;
+        a{
+          &:before{
+            background:#ccc !important;
+          }
+          height: 90px;
+          padding: 0 25px;
+          color: #fff;
+          font-size: 16px;
+          background: #111111 !important;
+          &:hover,
+          &:focus,
+          &:active{
+            text-decoration: none;
+            outline: none;
+            color: #000 !important;
+          }
+        }
+      }
+    }
+  }
 }

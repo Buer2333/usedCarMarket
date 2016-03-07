@@ -1,10 +1,11 @@
 @import "../import/bootstrap/bootstrap";
 
 header{
-  .container{
-    width: 100%;
+  >div{
+    width: 100% !important;
+    box-shadow: 0px 2px 2px;
   }
-  background: #333;
+  background: #111;
   width: 100%;
   position: fixed;
   z-index: 5;
@@ -14,34 +15,30 @@ header{
   }
   section:first-child{
     float: left;
-    padding: 5px;
-    box-sizing: border-box;
     height: 60px;
-    i{
-      display: inline-block;
-      width: 40px;
-      overflow: hidden;
-      .hLine(40px);
-      &:before{
-        font-size: 40px;
-        color: #ffffff;
-        width: 100%;
-        max-width:100%;
-        max-height:100%;
-      }
+    width: 100px;
+    img{
+      height: 60px;
+      width: 100px;
     }
   }
-  >div{
-    margin-left: 20px;
+  p{
+    font-family:'minijiankatong1e5f0460c4daf';
+    display: inline-block;
+    color: #cccccc;
+    text-indent: 10px;
+    margin: 0;
+    vertical-align: middle;
+    height: 38px;
   }
   section:last-child{
-    .hLine(30px);
     float: right;
     padding: 15px;
+    line-height: 0;
     a{
       display: inline-block;
       .rounded(5px);
-      padding: 0 40px;
+      padding: 15px 40px;
       &:first-child{
         background-color: #21759B;
         background-image: linear-gradient(to bottom, #2A95C5, #21759B);
@@ -52,9 +49,9 @@ header{
         text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
       }
       &:last-child{
-        background-color: #3b3b3b;
-        background-image: linear-gradient(to bottom, #2a2a2a, #3b3b3b);
-        border-color: #3b3b3b #3b3b3b #555555;
+        background-color: #6b6b6b;
+        background-image: linear-gradient(to bottom, #2a2a2a, #6b6b6b);
+        border-color: #6b6b6b #6b6b6b #555555;
         box-shadow: 0 1px 0 rgba(85, 85, 85, 0.5) inset;
         color: #FFFFFF;
         text-decoration: none;

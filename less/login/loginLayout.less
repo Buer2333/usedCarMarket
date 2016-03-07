@@ -1,0 +1,122 @@
+body{
+  background-image: url('../../img/bg-1.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  section{
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,.3);
+    position: relative;
+  }
+  header{
+    height: 70px;
+    line-height: 70px;
+    background: rgba(255,255,255,.5px);
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    h2{
+      position: absolute;
+      left: 10px;
+      height: 70px;
+      line-height: 70px;
+      img{
+        max-height: 90%;
+        margin-left: 20px;
+      }
+    }
+    h1{
+      text-align: center;
+      height: 70px;
+      line-height: 70px;
+      font-size: 24px;
+      color: #333;
+    }
+  }
+  article{
+    width: 400px;
+    min-height: 200px;
+    overflow: hidden;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -200px;
+    .rounded(10px);
+    box-shadow: 0 0 5px #696969;
+    background: rgba(255,255,255,.6);
+    padding: 20px;
+    label{
+      display: block;
+      height: 40px;
+      line-height: 40px;
+      margin: 20px auto;
+      border: 0px solid #a9a9a9;
+      background: rgba(255,255,255,.8);
+      transition: all .3s ease;
+      .rounded(5px);
+
+      &:hover{
+        border-left: 5px solid #a9a9a9;
+        box-shadow: 0 0 5px @blue;
+        transition: all .3s ease;
+      }
+      i{
+        float: left;
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        &:before{
+          width: 40px;
+          height: 40px;
+          line-height: 40px;
+          color: #818181;
+          font-size: 16px;
+        }
+      }
+      input{
+        float: left;
+        height: 40px;
+        line-height: 40px;
+        width: 310px;
+        background: none;
+        border: none;
+      }
+    }
+    p{
+      overflow: hidden;
+      height: 30px;
+      line-height: 30px;
+      a{
+        float: right;
+        transition: all .3s ease;
+        color: #666666;
+        &:hover{
+          color: #333333;
+          text-decoration: underline;
+        }
+      }
+    }
+    button{
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      background: @blue;
+      opacity:.6;
+      border: none;
+      color: #ffffff;
+      transition: opacity .5s ease;
+      font-size: 18px;
+      .rounded(10px);
+      cursor: pointer;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      &:hover{
+        opacity: .9;
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+//主体内容头部
+.body-head{
+  padding-top: 150px;
+  position: relative;
+  //主体头部背景
+  .body-head-bg{
+    background: url("../img/index-bg.jpg");
+    width: 100%;
+    height: 400px;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    //opacity: 0.8;
+    background-repeat: no-repeat;
+    padding-top: 5px;
+  }
+  //搜索框
+  .body-search{
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    top: 55%;
+    left: 33%;
+    text-align: left;
+    -webkit-transform: translate(0, -50%);
+    -moz-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    -o-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    background: rgba(17, 17, 17, 0.3);
+    transition: all .3s ease;
+    margin-bottom: 0;
+    font-weight: normal;
+    opacity: .95;
+    border-bottom:none;
+    overflow: hidden;
+    input{
+      height: 45px;
+      width: 380px;
+      background: #fff;
+      border: none;
+      padding: 7px 20px 5px;
+      font-size: 14px;
+      color: #747474;
+      outline: none;
+    }
+    >a{
+      display: inline-block;
+      height: 45px;
+      width: 100px;
+      line-height: 45px;
+      text-align: center;
+      font-size: 16px;
+      color: #ffffff;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-style: normal;
+      &:before{
+        width: 45px;
+        height: 45px;
+        line-height: 45px;
+        color: #818181;
+      }
+    }
+  }
+}
