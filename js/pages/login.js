@@ -1,3 +1,4 @@
+//背景图片随机切换
 var bgNum = randomNum(1, 3);
 var bgImg = 'img/bg-' + bgNum + '.jpg';
 $('body').width($(window).width())
@@ -16,3 +17,22 @@ function randomNum(minNum, maxNum) {
       break;
   }
 }
+//登陆注册
+var ref = new Wilddog("https://mxlucm.wilddogio.com");
+
+$(function(){
+
+  $("#login").on("click",function(){
+    var $userName = $("#username").val();
+    var $passWord = $("#password").val();
+    ref.authWithPassword({email:$userName,password:$passWord},
+      function(err,data){
+        if(err == null){
+          window.location.href = "index.html";
+        } else {
+          alert("auth failed,msg:",err);
+        }
+      }
+    )
+  })
+})

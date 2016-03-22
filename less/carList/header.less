@@ -1,39 +1,48 @@
-@import "../import/bootstrap/bootstrap";
-
-header{
-  >div{
-    width: 100% !important;
-    box-shadow: 0 2px 2px #555;
-  }
-  background: #111;
+.carList-head{
+  .hLine(90px);
   width: 100%;
-  position: fixed;
-  z-index: 5;
-  .hLine(60px);
-  >section,div{
+  box-shadow: 0 3px 5px rgba(60,60,60,.4);
+  background: #ffffff;
+  min-width: 1180px;
+  h1,>div{
     display: inline-block;
   }
-  section:first-child{
-    float: left;
-    height: 60px;
-    width: 100px;
-    img{
-      height: 60px;
-      width: 100px;
+  >h1{
+    margin:6px 25px;
+    a{
+      img{
+        height: 70px;
+        width: 250px;
+      }
     }
   }
-  p{
-    font-family:'minijiankatong1e5f0460c4daf';
-    display: inline-block;
-    color: #cccccc;
-    text-indent: 10px;
-    margin: 0;
-    vertical-align: middle;
-    height: 38px;
+  >div{
   }
-  section:last-child{
+  >nav{
     float: right;
-    padding: 15px;
+    margin-right: 80px;
+    >ul{
+      margin-bottom: 0;
+      li{
+        float: left;
+        a{
+          background: #ffffff;
+          height: 89px;
+          padding: 0 25px;
+          font-size: 16px;
+          &:hover,
+          &:focus,
+          &:active{
+            text-decoration: none;
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+  >section{
+    float: right;
+    padding: 30px;
     line-height: 0;
     a{
       display: inline-block;

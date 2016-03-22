@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>二手车列表</title>
+  <link rel="stylesheet" href="css/carList.css">
+</head>
+<body>
+  <header class="carList-head">
+    <h1>
+      <a href="#"><img src="img/logo-login.png" alt="logo"></a>
+    </h1>
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        城市 <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+      </ul>
+    </div>
+    <section>
+      <a href="login.html">登陆</a>
+      <a href="#">注册</a>
+    </section>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="hvr-rectangle-out">首页</a></li>
+        <li><a href="#" class="hvr-rectangle-out">精选二手车</a></li>
+        <li><a href="#" class="hvr-rectangle-out">我要卖车</a></li>
+        <li><a href="#" class="hvr-rectangle-out">服务保障</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="container">
+    <section class="car-filter">
+      <ul class="filter-selector">
+        <li class="filter-brand">
+          <label>品 牌:</label>
+          <a class="hvr-radial-out" href="#">不限</a>
+          <a class="hvr-radial-out" href="#">大众</a>
+          <a class="hvr-radial-out" href="#">丰田</a>
+          <a class="hvr-radial-out" href="#">奥迪</a>
+          <a class="hvr-radial-out" href="#">奔驰</a>
+          <a class="hvr-radial-out" href="#">宝马</a>
+          <a class="hvr-radial-out" href="#">本田</a>
+          <a class="hvr-radial-out" href="#">雪弗兰</a>
+          <a class="hvr-radial-out" href="#">别克</a>
+          <a class="hvr-radial-out" href="#">铃木</a>
+          <a class="hvr-radial-out" href="#">宝骏</a>
+          <a class="hvr-radial-out" href="#">更多</a>
+        </li>
+        <li class="filter-series">
+          <label>车 系:</label>
+          <a class="hvr-radial-out" href="#">不限</a>
+          <a class="hvr-radial-out" href="#">帕萨特</a>
+          <a class="hvr-radial-out" href="#">捷达</a>
+          <a class="hvr-radial-out" href="#">雅阁</a>
+          <a class="hvr-radial-out" href="#">QQ</a>
+          <a class="hvr-radial-out" href="#">伊兰特</a>
+          <a class="hvr-radial-out" href="#">凯越</a>
+          <a class="hvr-radial-out" href="#">A6L</a>
+          <a class="hvr-radial-out" href="#">马自达6</a>
+          <a class="hvr-radial-out" href="#">凯美瑞</a>
+          <a class="hvr-radial-out" href="#">科鲁兹</a>
+        </li>
+        <li class="filter-price">
+          <label>价 格:</label>
+          <a class="hvr-radial-out" href="#">3万以内</a>
+          <a class="hvr-radial-out" href="#">3-5万</a>
+          <a class="hvr-radial-out" href="#">5-8万</a>
+          <a class="hvr-radial-out" href="#">8-12万</a>
+          <a class="hvr-radial-out" href="#">12-18万</a>
+          <a class="hvr-radial-out" href="#">18-24万</a>
+          <a class="hvr-radial-out" href="#">24-35万</a>
+          <a class="hvr-radial-out" href="#">35-60万</a>
+          <a class="hvr-radial-out" href="#">60万以上</a>
+          <div class="filterCarPriceInput"></div>
+        </li>
+      </ul>
+    </section>
+    <section class="car-sort">
+      <ul>
+        <li>默认排序</li>
+        <li>价格 <i class="icon-arrowup"></i></li>
+        <li>车龄 <i class="icon-arrowup"></i></li>
+        <li>里程 <i class="icon-arrowup"></i></li>
+        <li>性价比 <i class="icon-arrowdown"></i></li>
+      </ul>
+    </section>
+    <section class="car-list">
+      <ul class="list-row">
+        <li>
+          <div class="modal-container" data-toggle="modal" data-target=".bs-example-modal-lg">
+            <div>
+              <img src="img/brand-1.jpg" alt="">
+            </div>
+            <article class="list-info">
+              <p class="list-title">
+                现代 格锐(进口) 13款 3.3L 自动 四驱 旗舰版 7座
+              </p>
+              <p class="list-desc">
+                2015年02月 / 0.8万公里 / 北京
+              </p>
+              <p class="list-price">
+              <span>
+                <em>26.4</em>
+                万
+              </span>
+              </p>
+              <p class="list-bottom">
+                <i class="icon-car"></i>
+                <span>
+                估值
+                <em>25</em>
+                万
+                </span>
+                <i class="icon-star"></i>
+              </p>
+            </article>
+          </div>
+          <section class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content car-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">车辆详情</h4>
+                </div>
+                <div class="modal-body modal-public-style">
+                  <div class="row row-mb">
+                    <div class="col-md-6">
+                      <label class="col-md-4 text-right">图片预览</label>
+                      <div class="col-md-8">
+                        <img src="img/brand-3.jpg" class="modal-img" alt="">
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">所在城市</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">行驶里程</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车辆上牌日期</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">联系电话</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车身颜色</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">变速箱</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">排量</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">强交险到期时间</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">商业险到期时间</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车型指导价</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车源描述</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车源估值</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">下一年估值</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 text-center order-tel">
+                      <span>
+                        预约看车 4008-820-820
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success">收藏</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </li>
+        <li>
+          <div class="modal-container" data-toggle="modal" data-target=".bs-example-modal-lg">
+            <div>
+              <img src="img/brand-1.jpg" alt="">
+            </div>
+            <article class="list-info">
+              <p class="list-title">
+                现代 格锐(进口) 13款 3.3L 自动 四驱 旗舰版 7座
+              </p>
+              <p class="list-desc">
+                2015年02月 / 0.8万公里 / 北京
+              </p>
+              <p class="list-price">
+              <span>
+                <em>26.4</em>
+                万
+              </span>
+              </p>
+              <p class="list-bottom">
+                <i class="icon-car"></i>
+                <span>
+                估值
+                <em>25</em>
+                万
+                </span>
+                <i class="icon-star"></i>
+              </p>
+            </article>
+          </div>
+          <section class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content car-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">车辆详情</h4>
+                </div>
+                <div class="modal-body modal-public-style">
+                  <div class="row row-mb">
+                    <div class="col-md-6">
+                      <label class="col-md-4 text-right">图片预览</label>
+                      <div class="col-md-8">
+                        <img src="img/brand-3.jpg" class="modal-img" alt="">
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">所在城市</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">行驶里程</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车辆上牌日期</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">联系电话</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车身颜色</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">变速箱</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">排量</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">强交险到期时间</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">商业险到期时间</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车型指导价</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车源描述</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车源估值</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">下一年估值</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 text-center order-tel">
+                      <span>
+                        预约看车 4008-820-820
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success">收藏</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </li>
+        <li>
+          <div class="modal-container" data-toggle="modal" data-target=".bs-example-modal-lg">
+            <div>
+              <img src="img/brand-1.jpg" alt="">
+            </div>
+            <article class="list-info">
+              <p class="list-title">
+                现代 格锐(进口) 13款 3.3L 自动 四驱 旗舰版 7座
+              </p>
+              <p class="list-desc">
+                2015年02月 / 0.8万公里 / 北京
+              </p>
+              <p class="list-price">
+              <span>
+                <em>26.4</em>
+                万
+              </span>
+              </p>
+              <p class="list-bottom">
+                <i class="icon-car"></i>
+                <span>
+                估值
+                <em>25</em>
+                万
+                </span>
+                <i class="icon-star"></i>
+              </p>
+            </article>
+          </div>
+          <section class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content car-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">车辆详情</h4>
+                </div>
+                <div class="modal-body modal-public-style">
+                  <div class="row row-mb">
+                    <div class="col-md-6">
+                      <label class="col-md-4 text-right">图片预览</label>
+                      <div class="col-md-8">
+                        <img src="img/brand-3.jpg" class="modal-img" alt="">
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">所在城市</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">行驶里程</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车辆上牌日期</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">联系电话</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车身颜色</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">变速箱</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">排量</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">强交险到期时间</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">商业险到期时间</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车型指导价</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车源描述</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车源估值</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">下一年估值</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 text-center order-tel">
+                      <span>
+                        预约看车 4008-820-820
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success">收藏</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </li>
+        <li>
+          <div class="modal-container" data-toggle="modal" data-target=".bs-example-modal-lg">
+            <div>
+              <img src="img/brand-1.jpg" alt="">
+            </div>
+            <article class="list-info">
+              <p class="list-title">
+                现代 格锐(进口) 13款 3.3L 自动 四驱 旗舰版 7座
+              </p>
+              <p class="list-desc">
+                2015年02月 / 0.8万公里 / 北京
+              </p>
+              <p class="list-price">
+              <span>
+                <em>26.4</em>
+                万
+              </span>
+              </p>
+              <p class="list-bottom">
+                <i class="icon-car"></i>
+                <span>
+                估值
+                <em>25</em>
+                万
+                </span>
+                <i class="icon-star"></i>
+              </p>
+            </article>
+          </div>
+          <section class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content car-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">车辆详情</h4>
+                </div>
+                <div class="modal-body modal-public-style">
+                  <div class="row row-mb">
+                    <div class="col-md-6">
+                      <label class="col-md-4 text-right">图片预览</label>
+                      <div class="col-md-8">
+                        <img src="img/brand-3.jpg" class="modal-img" alt="">
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">所在城市</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">行驶里程</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车辆上牌日期</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">联系电话</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车身颜色</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">变速箱</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">排量</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">强交险到期时间</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">商业险到期时间</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车型指导价</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车源描述</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">车源估值</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                      <div class="row row-mb">
+                        <label class="col-md-4 text-right">下一年估值</label>
+                        <div class="col-md-8">hehehehehehehhehhhheheheh</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 text-center order-tel">
+                      <span>
+                        预约看车 4008-820-820
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success">收藏</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </li>
+
+      </ul>
+    </section>
+  </div>
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/pages/carList.js"></script>
+</body>
+</html>
