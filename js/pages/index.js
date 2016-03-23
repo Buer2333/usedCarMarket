@@ -7,8 +7,19 @@ $(function() {
 
 $(function(){
   $(".account").hover(function(){
+    clearTimeout(t)
     $(this).next("ul").slideDown()
   },function(){
-    $(this).next("ul").slideUp()
+    t=setTimeout(function(){
+      $(this).next("ul").slideUp()
+    },500)
   })
-})
+});
+
+$(function(){
+  $(".dropdown-info").hover(function(){
+
+  },function(){
+
+  })
+});
