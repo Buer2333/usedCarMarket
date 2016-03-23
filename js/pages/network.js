@@ -3,12 +3,54 @@ var carList = new Array();
 var getCarBrandList = "http://api.che300.com/service/getCarBrandList?token=60998c88e30c16609dbcbe48f3216df3"
 var cityId = 44;
 var lastCarVar =0;
+var brand = ''
 var ascend = {
         price: '价格',
     }
-    //价格升序排列车
 
-    //bhklhhlj
+//通过价格查询
+
+function getCarListWithPrice(price){
+    var range = price.split('-');
+    ref.child('car_list/'+cityId).orderByChild('price').startAt(parseFloat(range[0])).endAt(parseFloat(range[1])).on('value',function(datas){
+        datas.forEach( function(data) {
+            console.log(data.val())
+            addCar(data.val(),name);
+        });
+    })
+}
+
+//通过车牌查询
+function getCarListWithBound(name){
+    clearCars(true);
+    ref.child('car_list/'+cityId).orderByChild('brand_name').equalTo(name).on("value",function(snapshot){
+       snapshot.forEach(function(data){
+        addCar(data.val(),"brand_name");
+
+        })
+    })
+    getCarListWithFirstVar('brand_name',name);
+    
+    ref.child('carbrand/brand_list/').orderByChild('brand_name').equalto(name).limitToFirst().onece('value',function(data){
+        ref.child('series_list/').orderByKey().equalTo(data.val().brand_id).once('value',function(datas){
+            datas.forEach( function(data) {
+
+                console.log(data.val());
+            });
+        })
+    })
+}
+//通过车系排序
+function getCarListWithBoundId(id){
+    clearCars(true);
+    ref.child('car_list/'+cityId).orderByChild('brand_id').equalTo(id).on('value',function(datas){
+        datas.forEach( function(data) {
+            addCar(data.val(),id);
+        });
+    })
+
+}
+    //价格升序排列车
 function getCarsWithAscendPrice(isClear) {
     clearCars(isClear);
     ref.child("car_list/"+cityId).orderByChild("price").startAt(parseFloat(lastCarVar)).limitToFirst(20).once("value", function(snapshot) {
@@ -22,7 +64,7 @@ function getCarsWithAscendPrice(isClear) {
 function getCarsWithAscendMile(isCleser) {
     clearCars(isCleser);
 
-    ref.child("car_list/"+cityId).orderByChild("mile_age").startAt(lastCarVar).limitToFirst(20).on("child_added", function(snapshot) {
+    ref.child("car_list/"+cityId).orderByChild("mile_age").startAt(parseFloat(lastCarVar)).limitToFirst(20).once("child_added", function(snapshot) {
         addCar(snapshot.val());
     });
 }
@@ -32,7 +74,7 @@ function getCarsWithDescendVpr(isCleser) {
     if(isCleser){
         lastCarVar =100;
     }
-    ref.child("car_list/"+cityId).orderByChild("vpr").endAt(lastCarVar).limitToLast(20).on("child_added", function(snapshot) {
+    ref.child("car_list/"+cityId).orderByChild("vpr").endAt(parseFloat(lastCarVar)).limitToLast(20).once("child_added", function(snapshot) {
         addCar(snapshot.val());
     });
 }
