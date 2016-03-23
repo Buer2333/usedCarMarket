@@ -13,10 +13,11 @@ header{
   >section,div{
     display: inline-block;
   }
-  section:first-child{
+  h4{
     float: left;
     height: 60px;
     width: 100px;
+    margin: 0;
     img{
       height: 60px;
       width: 100px;
@@ -31,7 +32,7 @@ header{
     vertical-align: middle;
     height: 38px;
   }
-  section:last-child{
+  >section:first-child{
     float: right;
     padding: 15px;
     line-height: 0;
@@ -62,4 +63,89 @@ header{
       margin-left: 10px;
     }
   }
+  .account {
+    position: relative;
+    display: inline-block;
+    float: right;
+    padding: 15px;
+    line-height: 0;
+    cursor: pointer;
+    >em{
+      color: #ffffff;
+      font-style: normal;
+    }
+    >span{
+      >b{
+        color: #ffffff;
+      }
+      position: relative;
+      height: 30px;
+      line-height: 30px;
+      color: #818181;
+      i:before {
+        margin-left: 2px;
+        color: #fff;
+      }
+      &:active,
+      &:hover,
+      &:focus{
+        color: #5dbcff;
+      }
+    }
+  }
+  .dropdown-info{
+    float: right;
+    width: 100px;
+    display: none;
+    position: relative;
+    z-index: 99;
+    top: 5px;
+    overflow: hidden;
+    box-shadow: 0 3px 5px 1px #818181;
+    background: #ffffff;
+    >li{
+      width: 100%;
+      height: 25px;
+      line-height: 25px;
+      text-align: right;
+      >a{
+        color: #333;
+      }
+    }
+  }
+}
+//下拉城市导航
+.city-group-wrap{
+  width: 600px;
+  padding: 20px 0;
+  .city-group{
+    margin: 0;
+    width: 100%;
+    padding: 0;
+    height: 100%;
+    overflow-y: scroll;
+    .city-group-item{
+      list-style: none;
+      line-height: 2em;
+      .city-group-inline{
+        padding: 0;
+        margin: 0;
+        >li{
+          width: 14%;
+          float: left;
+        }
+        .city-group-item-title{
+          font-size: 1.2em;
+          text-align: center;
+        }
+        .city-in-group:nth-child(8),.city-in-group:nth-child(14),.city-in-group:nth-child(20),.city-in-group:nth-child(26){
+          margin-left:14%;
+        }
+      }
+    }
+  }
+}
+//登陆注册session
+.toggle-display{
+  display: none;
 }
