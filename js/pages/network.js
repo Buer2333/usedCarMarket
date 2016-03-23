@@ -7,6 +7,8 @@ var ascend = {
         price: '价格',
     }
     //价格升序排列车
+
+    //bhklhhlj
 function getCarsWithAscendPrice(isClear) {
     clearCars(isClear);
     ref.child("car_list/"+cityId).orderByChild("price").startAt(parseFloat(lastCarVar)).limitToFirst(20).once("value", function(snapshot) {
