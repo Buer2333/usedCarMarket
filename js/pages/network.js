@@ -8,7 +8,7 @@ var ascend = {
     price: '价格',
 }
 
-
+var collctCars = sessionStorage.collctCars;
 
 // 注册回调方法，在每次终端用户认证状态发生改变时，回调方法被执行。
 
@@ -69,13 +69,35 @@ function User(email, password) {
                     /**填写注册成功后的代码
                      * 
                      */
-                    
+                    addUserData(data);
                     console.log(data);
                 }
             });
     }
+    /**
+     * 添加用户信息
+     */
+    function addUserData(data){
+    	var uid = data.uid.split(':')[1];
+   		var dic = {
+   			'userName' : '没有名字'
+   		}
+    	ref.child('Users/'+uid).set(dic);
+    }
 }
 
+var user = new User('12@qq.com','123');
+user.registerUser();
+/**
+ * 收藏汽车信息
+ * @param  {[number]} id [汽车的ID]
+ * @return {[空]}    [description]
+ */
+function colloctCarData(id){
+	data = carList[id];
+	collctCars[id] = data;
+	sessionStorage.collctCars = collctCars
+}
 
 function getCarListWithPrice(price) {
     clear(true);
@@ -216,7 +238,7 @@ function newCarCell(data) {
         '<em>' + data.eval_price + '</em>万' +
 
         '</span>' +
-        '<i class="icon-star">' + '</i>' +
+        '<i class="icon-star" name='+data.id+'>' + '</i>' +
         '</p>' +
         '</article>' +
         '</div>'
