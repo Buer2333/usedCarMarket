@@ -8,7 +8,74 @@ var ascend = {
     price: '价格',
 }
 
-//通过价格查询
+
+
+// 注册回调方法，在每次终端用户认证状态发生改变时，回调方法被执行。
+
+function authDataCallback(authData) {
+    if (authData) {
+        console.log("User " + authData.uid + " is logged in with " + authData.provider);
+    } else {
+        console.log("User is logged out");
+    }
+}
+
+ref.onAuth(authDataCallback);
+
+function User(email, password) {
+    this.email = email;
+    this.password = password;
+
+
+
+    this.Login = function() { // 登陆
+        ref.authWithPassword({
+            email: this.email,
+            password: this.password
+        }, authHandler);
+
+
+    }
+
+    function authHandler(error, authData) {
+        if (error) {
+            console.log("Login Failed!", error);
+        } else {
+            /**
+             *填写登陆成功后的代码
+             */
+            localStorage.token = authData.token;
+
+            console.log("Authenticated successfully with payload:", authData);
+        }
+    }
+    //通过浏览器储存的token进行登陆
+    this.authWithCustomToken = function() {
+        //通过seesion 保存的token 登陆
+        ref.authWithCustomToken(localStorage.token, authHandler);
+    }
+    
+    // 退出登陆
+    this.exitLogin = function() {
+            ref.unauth();
+        }
+        //注册
+    this.registerUser = function(email, password) {
+        ref.createUser({ email: this.email, password: this.password },
+            function(err, data) {
+                if (err != null) {
+                    //not success
+                } else {
+                    /**填写注册成功后的代码
+                     * 
+                     */
+                    
+                    console.log(data);
+                }
+            });
+    }
+}
+
 
 function getCarListWithPrice(price) {
     clear(true);
@@ -176,7 +243,6 @@ function showModal(index) {
     } else {
         $('#color').html('');
     }
-
     $('#gear_type').html(carList[index].gear_type);
     $('#liter').html(carList[index].liter);
     $('#tlci_date').html(carList[index].tlci_date);
@@ -185,16 +251,6 @@ function showModal(index) {
     $('#car_desc').html(carList[index].car_desc);
     $('#eval_price').html(carList[index].eval_price + '万');
     $('#next_year_eval_price').html(carList[index].next_year_eval_price + '万');
-    // for (variable in carList[index]) {
-    //   var temp = carList[index][variable];
-    //     if (typeof(temp)!="undefined"&& typeof(temp)!=0){
-
-    //       $('#'+variable).html(carList[index][variable]);
-
-    //     }else {
-    //       $('#'+variable).html('');
-    //     }
-    // }
     $('#target').modal('show');
 }
 
