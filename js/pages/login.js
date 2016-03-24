@@ -18,7 +18,6 @@ function randomNum(minNum, maxNum) {
   }
 }
 //登陆注册
-var ref = new Wilddog("https://mxlucm.wilddogio.com");
 
 $(function(){
 
@@ -27,6 +26,8 @@ $(function(){
     var $passWord = $("#password").val();
     alert($userName+$passWord);
     var user = new User($userName,$passWord);
+
+
     user.Login();
   })
 })

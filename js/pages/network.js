@@ -45,7 +45,7 @@ function User(email, password) {
              */
             uid = authData.uid.split(':')[1];
             localStorage.token = authData.token;
-            location.href = "../../index.html"
+            location.href = "index.html"
             console.log("Authenticated successfully with payload:", authData);
         }
     }
