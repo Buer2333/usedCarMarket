@@ -45,7 +45,7 @@ function User(email, password) {
              */
             uid = authData.uid.split(':')[1];
             localStorage.token = authData.token;
-
+            location.href = "../../index.html"
             console.log("Authenticated successfully with payload:", authData);
         }
     }
@@ -86,8 +86,7 @@ function User(email, password) {
     }
 }
 
-// var user = new User('12@qq.com','123');
-// user.registerUser();
+
 /**
  * 收藏汽车信息
  * @param  {[number]} id [汽车的ID]
