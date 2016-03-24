@@ -20,7 +20,7 @@ function getCarListWithPrice(price){
     })
 }
 
-//通过车牌查询
+//通过品牌查询
 function getCarListWithBound(name){
     clearCars(true);
     ref.child('car_list/'+cityId).orderByChild('brand_name').equalTo(name).on("value",function(snapshot){
@@ -50,7 +50,7 @@ function getCarListWithBoundId(id){
     })
 
 }
-    //价格升序排列车
+//价格升序排列车
 function getCarsWithAscendPrice(isClear) {
     clearCars(isClear);
     ref.child("car_list/"+cityId).orderByChild("price").startAt(parseFloat(lastCarVar)).limitToFirst(20).once("value", function(snapshot) {
@@ -79,15 +79,14 @@ function getCarsWithDescendVpr(isCleser) {
     });
 }
 
-
+//通过城市名列出车表
 function getCityIdWithName(name) {
 
-    ref.child("city_content/city_list").orderByChild("city_name").equalTo(name).on("value", function(snapshot) {
+    ref.child("AllCity/city_list").orderByChild("city_name").equalTo(name).on("value", function(snapshot) {
         // var city_id = snapshot.val()["city_id"];
         console.log('连接城市完成')
         clearCars(true);
-
-
+        console.log(snapshot.val());
         snapshot.forEach(function(data) {
             // console.log(data.val().city_id)
             cityId = data.val().city_id;
@@ -97,6 +96,7 @@ function getCityIdWithName(name) {
         });
     });
 }
+//getCityIdWithName("北京");
 //是否清空汽车数据
 function clearCars(isClear) {
     if (isClear) {

@@ -1,4 +1,28 @@
-
+//正则获取url参数
+(function ($) {
+  $.getUrlParam = function (name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return decodeURI(r[2]); return null;
+  }
+})(jQuery);
+var cityName = $.getUrlParam('cityName');
+console.log(cityName)
+//进入该页面判断城市
+$(document).ready(function(){
+  getCityIdWithName(cityName);
+  if($(".city-replace").is(":empty")){
+    $(".city-replace").text("城市");
+  }
+});
+//在当前页面切换城市
+$(".city-in-group").on("click",function(event){
+  cityName = $(this).text();
+  location.href = "carList.html?cityName="+cityName;
+});
+//城市button的value取代
+$(".city-replace").text(cityName);
+//收藏组织冒泡
 $(".icon-star").on('click',function(event){
   event.stopPropagation();
   $(this).toggleClass('active');

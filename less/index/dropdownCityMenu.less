@@ -1,0 +1,31 @@
+//下拉城市导航
+.city-group-wrap{
+  width: 600px;
+  padding: 20px 0;
+  .city-group{
+    margin: 0;
+    width: 100%;
+    padding: 0;
+    height: 100%;
+    overflow-y: auto;
+    .city-group-item{
+      list-style: none;
+      line-height: 2em;
+      .city-group-inline{
+        padding: 0;
+        margin: 0;
+        >li{
+          width: 14%;
+          float: left;
+        }
+        .city-group-item-title{
+          font-size: 1.2em;
+          text-align: center;
+        }
+        .city-in-group:nth-child(8),.city-in-group:nth-child(14),.city-in-group:nth-child(20),.city-in-group:nth-child(26){
+          margin-left:14%;
+        }
+      }
+    }
+  }
+}
