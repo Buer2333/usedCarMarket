@@ -1,14 +1,13 @@
 var ref = new Wilddog("https://ttrcar.wilddogio.com/"); //野狗数据根地址
 var carList = new Array();
 var getCarBrandList = "http://api.che300.com/service/getCarBrandList?token=60998c88e30c16609dbcbe48f3216df3"
-var cityId = 44;
+ var cityId = 44;
 var lastCarVar = 0;
 var brand = ''
 var ascend = {
     price: '价格',
 }
-
-var collctCars = sessionStorage.collctCars;
+var uid = 
 
 // 注册回调方法，在每次终端用户认证状态发生改变时，回调方法被执行。
 
@@ -20,7 +19,7 @@ function authDataCallback(authData) {
     }
 }
 
-ref.onAuth(authDataCallback);
+// ref.onAuth(authDataCallback);
 
 function User(email, password) {
     this.email = email;
@@ -44,6 +43,7 @@ function User(email, password) {
             /**
              *填写登陆成功后的代码
              */
+            uid = authData.uid.split(':')[1];
             localStorage.token = authData.token;
 
             console.log("Authenticated successfully with payload:", authData);
@@ -86,17 +86,44 @@ function User(email, password) {
     }
 }
 
-var user = new User('12@qq.com','123');
-user.registerUser();
+// var user = new User('12@qq.com','123');
+// user.registerUser();
 /**
  * 收藏汽车信息
  * @param  {[number]} id [汽车的ID]
  * @return {[空]}    [description]
  */
 function colloctCarData(id){
+	var collctCars = sessionStorage.collctCars ;
+	if (typeof(collctCars[id]) == 'undefined' ||typeof(collctCars[id]) == null ) {
+		return;
+	}
+	ref.child('Users/'+uid).child('collctCars').push({'id' : id,'city':'cityId':cityId})
 	data = carList[id];
 	collctCars[id] = data;
 	sessionStorage.collctCars = collctCars
+
+
+}
+/**
+ * 获取用户收藏汽车的数据
+ * @return {[type]} [description]
+ */
+function getUserCarsWithColloct(){
+	collctCars = sessionStorage.collctCars;
+	ref.child('Users/'+uid).on('value',function(datas){
+		data.forEach(function(data){
+			var id = data.val().id;
+
+			if (typeof(collctCars[id]) != 'undefined' ||typeof(collctCars[id]) != null ) {
+				//添加缓存collctCars[id]的数据
+			}else {
+				ref.child('car_list/'+data.val().cityId).orderByChild('id').equeTo(data.val().id)).on('value',function(data){
+					//添加data的数据
+				});
+			}
+		})
+	});
 }
 
 function getCarListWithPrice(price) {
@@ -172,7 +199,7 @@ function getCarsWithDescendVpr(isCleser) {
     });
 }
 
-//通过城市名列出车表
+//通过城市名列出车表  默认排序
 function getCityIdWithName(name) {
 
     ref.child("AllCity/city_list").orderByChild("city_name").equalTo(name).on("value", function(snapshot) {
