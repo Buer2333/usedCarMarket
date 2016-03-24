@@ -18,21 +18,16 @@ function randomNum(minNum, maxNum) {
   }
 }
 //登陆注册
-var ref = new Wilddog("https://mxlucm.wilddogio.com");
 
 $(function(){
 
   $("#login").on("click",function(){
     var $userName = $("#username").val();
     var $passWord = $("#password").val();
-    ref.authWithPassword({email:$userName,password:$passWord},
-      function(err,data){
-        if(err == null){
-          window.location.href = "index.html";
-        } else {
-          alert("auth failed,msg:",err);
-        }
-      }
-    )
+    alert($userName+$passWord);
+    var user = new User($userName,$passWord);
+
+
+    user.Login();
   })
 })
