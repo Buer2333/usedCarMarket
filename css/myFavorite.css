@@ -10811,6 +10811,59 @@ li {
 .city-group-wrap .city-group .city-group-item .city-group-inline .city-in-group:nth-child(26) {
   margin-left: 14%;
 }
+.dropdown-container {
+  float: right;
+  position: relative;
+}
+.dropdown-container .account {
+  padding: 30px 15px;
+  line-height: 0;
+  cursor: pointer;
+}
+.dropdown-container .account > em {
+  color: #000;
+  font-style: normal;
+}
+.dropdown-container .account > span {
+  position: relative;
+  height: 30px;
+  line-height: 30px;
+  color: #818181;
+}
+.dropdown-container .account > span > b {
+  color: #000;
+}
+.dropdown-container .account > span i:before {
+  margin-left: 2px;
+  color: #000;
+}
+.dropdown-container .account > span:active,
+.dropdown-container .account > span:hover,
+.dropdown-container .account > span:focus {
+  color: #000;
+}
+.dropdown-container .dropdown-info {
+  display: none;
+  float: right;
+  width: 100px;
+  position: absolute;
+  z-index: 99;
+  top: 60px;
+  left: 15px;
+  overflow: hidden;
+  box-shadow: 0 3px 5px 1px #818181;
+  background: #ffffff;
+  line-height: 0;
+}
+.dropdown-container .dropdown-info > li {
+  width: 100%;
+  height: 25px;
+  line-height: 25px;
+  text-align: right;
+}
+.dropdown-container .dropdown-info > li > a {
+  color: #333;
+}
 .car-list > ul {
   height: 960px;
 }

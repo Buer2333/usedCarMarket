@@ -25,15 +25,12 @@ function User(email, password) {
     this.email = email;
     this.password = password;
 
-
-
     this.Login = function() { // 登陆
+        console.log(this.email);
         ref.authWithPassword({
             email: this.email,
             password: this.password
         }, authHandler);
-
-
     }
 
     function authHandler(error, authData) {
@@ -45,7 +42,7 @@ function User(email, password) {
              */
             uid = authData.uid.split(':')[1];
             localStorage.token = authData.token;
-            location.href = "../../index.html"
+            location.href = "index.html"
             console.log("Authenticated successfully with payload:", authData);
         }
     }
@@ -312,3 +309,28 @@ function showModal(index) {
 
 
 //bootstrap动态添加modal
+
+//用户下拉
+var t
+$(function(){
+    $(".account").hover(function(){
+        clearTimeout(t);
+        //$(this).next("ul").stop(false,true);
+        $(this).next("ul").slideDown()
+    },function(){
+        t=setTimeout(function(){
+            //$(".dropdown-info").stop(false,true);
+            $(".dropdown-info").slideUp()
+        },500)
+    })
+});
+
+$(function(){
+    $(".dropdown-info").hover(function(){
+        clearTimeout(t)
+    },function(){
+        t=setTimeout(function(){
+            $(".dropdown-info").slideUp()
+        },500)
+    })
+});
