@@ -1,7 +1,7 @@
 var ref = new Wilddog("https://ttrcar.wilddogio.com/"); //野狗数据根地址
 var carList = new Array();
 var getCarBrandList = "http://api.che300.com/service/getCarBrandList?token=60998c88e30c16609dbcbe48f3216df3"
- var cityId = 44;
+ var cityId =44 ;
 var lastCarVar = 0;
 var brand = ''
 var ascend = {
@@ -98,7 +98,7 @@ function colloctCarData(id){
 	if (typeof(collctCars[id]) == 'undefined' ||typeof(collctCars[id]) == null ) {
 		return;
 	}
-	ref.child('Users/'+uid).child('collctCars').push({'id' : id,'city':'cityId':cityId})
+	ref.child('Users/'+uid).child('collctCars').push({'id' : id,'cityId':cityId})
 	data = carList[id];
 	collctCars[id] = data;
 	sessionStorage.collctCars = collctCars
@@ -118,7 +118,7 @@ function getUserCarsWithColloct(){
 			if (typeof(collctCars[id]) != 'undefined' ||typeof(collctCars[id]) != null ) {
 				//添加缓存collctCars[id]的数据
 			}else {
-				ref.child('car_list/'+data.val().cityId).orderByChild('id').equeTo(data.val().id)).on('value',function(data){
+				ref.child('car_list/'+data.val().cityId).orderByChild('id').equeTo(data.val().id).on('value',function(data){
 					//添加data的数据
 				});
 			}
@@ -194,29 +194,36 @@ function getCarsWithDescendVpr(isCleser) {
     }
     ref.child("car_list/" + cityId).orderByChild("vpr").endAt(parseFloat(lastCarVar)).limitToLast(10).once("value", function(snapshot) {
         snapshot.forEach(function(data) {
-            addCar(data.val(), "mile_age");
+            addCar(data.val(), "vpr");
         })
     });
 }
-
 //通过城市名列出车表  默认排序
 function getCityIdWithName(name) {
 
     ref.child("AllCity/city_list").orderByChild("city_name").equalTo(name).on("value", function(snapshot) {
-        // var city_id = snapshot.val()["city_id"];
-        console.log('连接城市完成')
-        clearCars(true);
         console.log(snapshot.val());
-        snapshot.forEach(function(data) {
-            // console.log(data.val().city_id)
+        snapshot.forEach(function(data){
             cityId = data.val().city_id;
-            ref.child("car_list/" + data.val().city_id).limitToFirst(20).on("child_added", function(snapshot) {
-                addCar(snapshot.val());
-            });
+            console.log(cityId);
+            getdifaultCas(true);
         });
+
     });
 }
-//getCityIdWithName("北京");
+function getdifaultCas(isCleser){
+    clearCars(isCleser);
+    if (isCleser) {
+        lastCarVar = 0;
+    }
+    ref.child("car_list/" + cityId).limitToFirst(lastCarVar+10).on("value", function(snapshot) {
+        snapshot.forEach(function(data) {
+            addCar(data.val(), "price");
+            lastCarVar ++;
+        })
+    });
+}
+
 //是否清空汽车数据
 function clearCars(isClear) {
     if (isClear) {
