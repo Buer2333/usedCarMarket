@@ -403,5 +403,35 @@ $(".logout").on('click',function(){
     sessionStorage.userName = '';
     window.location.reload()
 });
+// 通过关键字搜书汽车
 
+function searchCarsWithTag(tag) {
+    var numberDouble = /^[0-9]+(.[0-9])?$/;
+    var carBrand = /[\u4e00-\u9fa5]{0,}/;
+    var isBrand = tag.match(carBrand);
+    var isPrice = tag.match(numberDouble);
+    if (tag.search(numberDouble) != -1){
+        getRangeCarsWithPice(tag);
+        return;
+    }else if (tag.search(carBrand) != -1) {
+        ref.child('car_list/' + cityId).orderByChild('brand_name').equalTo(tag).on("value", function(snapshot) {
+            snapshot.forEach(function(data) {
+                addCar(data.val(), "brand_name");
+
+            })
+        })
+    }
+}
+
+// 通过价格获取汽车数据
+
+function getRangeCarsWithPice(pice) {
+
+    ref.child('car_list/' + cityId).orderByChild('price').startAt(parseFloat(pice) - 5).endAt(parseFloat(pice) + 5).on('value', function(datas) {
+        datas.forEach(function(data) {
+            console.log(data.val())
+            addCar(data.val(), name);
+        });
+    })
+}
 
