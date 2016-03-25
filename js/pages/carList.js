@@ -22,11 +22,6 @@ $(".city-in-group").on("click",function(event){
 });
 //城市button的value取代
 $(".city-replace").text(cityName);
-//收藏组织冒泡
-$(".icon-star").on('click',function(event){
-  event.stopPropagation();
-  $(this).toggleClass('active');
-});
 //carList模版
 var carListTemplate = $('')
 //carList下拉列表
@@ -65,3 +60,13 @@ $(".mile_age").on('click',function(){
 $(".vpr").on('click',function(){
   getCarsWithDescendVpr(true);
 })
+//收藏阻止冒泡
+//$(document).ready(function(){
+//  $(".list-update").on('click','i',function(){
+//    $(this).toggleClass('active');
+//    event.stopPropagation()
+//  });
+//});
+function onClick(abc){
+  $(abc).toggleClass('active')
+}

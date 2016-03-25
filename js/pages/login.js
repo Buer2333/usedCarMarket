@@ -24,10 +24,7 @@ $(function(){
   $("#login").on("click",function(){
     var $userName = $("#username").val();
     var $passWord = $("#password").val();
-    alert($userName+$passWord);
     var user = new User($userName,$passWord);
-
-
     user.Login();
   })
 })

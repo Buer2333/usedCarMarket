@@ -1,0 +1,53 @@
+.dropdown-container{
+  float: right;
+  position: relative;
+  .account {
+    padding: 30px 15px;
+    line-height: 0;
+    cursor: pointer;
+    >em{
+      color: #000;
+      font-style: normal;
+    }
+    >span{
+      >b{
+        color: #000;
+      }
+      position: relative;
+      height: 30px;
+      line-height: 30px;
+      color: #818181;
+      i:before {
+        margin-left: 2px;
+        color: #000;
+      }
+      &:active,
+      &:hover,
+      &:focus{
+        color: #000;
+      }
+    }
+  }
+  .dropdown-info{
+    display: none;
+    float: right;
+    width: 100px;
+    position: absolute;
+    z-index: 99;
+    top: 60px;
+    left: 15px;
+    overflow: hidden;
+    box-shadow: 0 3px 5px 1px #818181;
+    background: #ffffff;
+    line-height: 0;
+    >li{
+      width: 100%;
+      height: 25px;
+      line-height: 25px;
+      text-align: right;
+      >a{
+        color: #333;
+      }
+    }
+  }
+}

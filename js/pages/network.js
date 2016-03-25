@@ -1,9 +1,10 @@
 var ref = new Wilddog("https://ttrcar.wilddogio.com/"); //野狗数据根地址
 var carList = new Array();
 var getCarBrandList = "http://api.che300.com/service/getCarBrandList?token=60998c88e30c16609dbcbe48f3216df3"
- var cityId =44 ;
+ var cityId =200 ;
 var lastCarVar = 0;
 var brand = ''
+var carLisKeys= new  Array();
 var ascend = {
     price: '价格',
 }
@@ -25,15 +26,12 @@ function User(email, password) {
     this.email = email;
     this.password = password;
 
-
-
     this.Login = function() { // 登陆
+        console.log(this.email);
         ref.authWithPassword({
             email: this.email,
             password: this.password
         }, authHandler);
-
-
     }
 
     function authHandler(error, authData) {
@@ -45,20 +43,21 @@ function User(email, password) {
              */
             uid = authData.uid.split(':')[1];
             localStorage.token = authData.token;
-            location.href = "index.html"
+            sessionStorage.userName = email;
+            location.href = "index.html";
             console.log("Authenticated successfully with payload:", authData);
         }
     }
     //通过浏览器储存的token进行登陆
     this.authWithCustomToken = function() {
-        //通过seesion 保存的token 登陆
+        //通过session 保存的token 登陆
         ref.authWithCustomToken(localStorage.token, authHandler);
-    }
+    };
     
     // 退出登陆
     this.exitLogin = function() {
             ref.unauth();
-        }
+        };
         //注册
     this.registerUser = function(email, password) {
         ref.createUser({ email: this.email, password: this.password },
@@ -108,6 +107,14 @@ function colloctCarData(id){
  * 获取用户收藏汽车的数据
  * @return {[type]} [description]
  */
+
+function  getUserData(){
+    var data = {
+       'name' : sessionStorage.collctCars,
+    }
+    return data;
+}
+
 function getUserCarsWithColloct(){
 	collctCars = sessionStorage.collctCars;
 	ref.child('Users/'+uid).on('value',function(datas){
@@ -199,7 +206,6 @@ function getCarsWithDescendVpr(isCleser) {
 }
 //通过城市名列出车表  默认排序
 function getCityIdWithName(name) {
-
     ref.child("AllCity/city_list").orderByChild("city_name").equalTo(name).on("value", function(snapshot) {
         console.log(snapshot.val());
         snapshot.forEach(function(data){
@@ -222,7 +228,35 @@ function getdifaultCas(isCleser){
         })
     });
 }
+// 通过城市名字获取汽车数据
+function getDataWithCityName(name,callBack) {
 
+
+
+    ref.child("AllCity/city_list").orderByChild("city_name").equalTo(name).on("value", function(snapshot) {
+        snapshot.forEach(function(data){
+            cityId = data.val().city_id;
+            ref.child("car_list/" + cityId).orderByKey().limitToFirst(11).on("value", function(snapshot) {
+                snapshot.forEach(function(data){
+                    carLisKeys[data.val().id] = data.key();
+                    carList.push(data.val());
+                });
+
+                callBack(carList);
+            });
+
+        });
+
+    });
+}
+
+function  delectCarWithCarId(carId){
+    console.log("carLisKeys="+carLisKeys[carId] +"cityId = " + cityId);
+    ref.child('car_list/'+cityId+'/'+carLisKeys[carId]).remove();
+    alert("删除成功!");
+    grid_2_1_4.load();
+
+}
 //是否清空汽车数据
 function clearCars(isClear) {
     if (isClear) {
@@ -271,7 +305,7 @@ function newCarCell(data) {
         '<em>' + data.eval_price + '</em>万' +
 
         '</span>' +
-        '<i class="icon-star" name='+data.id+'>' + '</i>' +
+        '<i class="icon-star" onclick="onClick(this); event.stopPropagation()" name='+data.id+'>' + '</i>' +
         '</p>' +
         '</article>' +
         '</div>'
@@ -312,3 +346,28 @@ function showModal(index) {
 
 
 //bootstrap动态添加modal
+
+//用户下拉
+var t;
+$(document).ready(function(){
+    $(".account").hover(function(){
+        clearTimeout(t);
+        //$(this).next("ul").stop(false,true);
+        $(this).next("ul").slideDown()
+    },function(){
+        t=setTimeout(function(){
+            //$(".dropdown-info").stop(false,true);
+            $(".dropdown-info").slideUp()
+        },500)
+    })
+
+    $(".dropdown-info").hover(function(){
+        clearTimeout(t)
+    },function(){
+        t=setTimeout(function(){
+            $(".dropdown-info").slideUp()
+        },500)
+    })
+});
+
+
