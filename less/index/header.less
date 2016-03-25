@@ -33,10 +33,11 @@ header{
     vertical-align: middle;
     height: 38px;
   }
-  >section:first-child{
+  .toggle-display{
     float: right;
     padding: 15px;
     line-height: 0;
+    display: none;
     a{
       display: inline-block;
       .rounded(5px);
@@ -65,6 +66,7 @@ header{
     }
   }
   .dropdown-container{
+    display: none;
     float: right;
     position: relative;
     .account {
@@ -101,7 +103,7 @@ header{
       position: absolute;
       z-index: 99;
       top: 60px;
-      left: 15px;
+      right: 15px;
       overflow: hidden;
       box-shadow: 0 3px 5px 1px #818181;
       background: #ffffff;
@@ -120,6 +122,3 @@ header{
 }
 
 //登陆注册session
-.toggle-display{
-  display: none;
-}
