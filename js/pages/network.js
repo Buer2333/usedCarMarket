@@ -1,24 +1,25 @@
 var ref = new Wilddog("https://ttrcar.wilddogio.com/"); //野狗数据根地址
 var carList = new Array();
 var getCarBrandList = "http://api.che300.com/service/getCarBrandList?token=60998c88e30c16609dbcbe48f3216df3"
- var cityId =200 ;
+ var cityId =44 ;
 var lastCarVar = 0;
 var brand = ''
 var carLisKeys= new  Array();
 var ascend = {
     price: '价格',
 }
-var uid = 
+var uid = sessionStorage.id;
+//var collectCars = sessionStorage.collectCars
 
 // 注册回调方法，在每次终端用户认证状态发生改变时，回调方法被执行。
-
-function authDataCallback(authData) {
-    if (authData) {
-        console.log("User " + authData.uid + " is logged in with " + authData.provider);
-    } else {
-        console.log("User is logged out");
-    }
-}
+//
+//function authDataCallback(authData) {
+//    if (authData) {
+//        console.log("User " + authData.uid + " is logged in with " + authData.provider);
+//    } else {
+//        console.log("User is logged out");
+//    }
+//}
 
 // ref.onAuth(authDataCallback);
 
@@ -42,10 +43,13 @@ function User(email, password) {
              *填写登陆成功后的代码
              */
             uid = authData.uid.split(':')[1];
+            console.log(uid)
+            sessionStorage.id = uid;
             localStorage.token = authData.token;
             sessionStorage.userName = email;
-            location.href = "index.html";
+            location.replace(document.referrer);
             console.log("Authenticated successfully with payload:", authData);
+            getUserCarsWithColloct();
         }
     }
     //通过浏览器储存的token进行登陆
@@ -57,6 +61,7 @@ function User(email, password) {
     // 退出登陆
     this.exitLogin = function() {
             ref.unauth();
+            sessionStorage.clear();
         };
         //注册
     this.registerUser = function(email, password) {
@@ -91,40 +96,54 @@ function User(email, password) {
  * @param  {[number]} id [汽车的ID]
  * @return {[空]}    [description]
  */
-function colloctCarData(id){
-	var collctCars = sessionStorage.collctCars ;
-	if (typeof(collctCars[id]) == 'undefined' ||typeof(collctCars[id]) == null ) {
-		return;
-	}
-	ref.child('Users/'+uid).child('collctCars').push({'id' : id,'cityId':cityId})
-	data = carList[id];
-	collctCars[id] = data;
-	sessionStorage.collctCars = collctCars
+function collectCarData(id){
+	//var collectCars = sessionStorage.collectCars ;
+    ref.child('Users/'+uid).child('collectCars').orderByChild('id').equalTo(id).once('value',function(data){
 
+        if (data.val() == null){
+            ref.child('Users/'+uid).child('collectCars/'+id).set({'id' : id,'cityId':cityId});
+            data = carList[id];
+            sessionStorage[id] = data;
+        }else {
+            ref.child('Users/'+uid).child('collectCars/'+id).remove();
+        }
+    })
 
 }
+
 /**
  * 获取用户收藏汽车的数据
  * @return {[type]} [description]
  */
 
 function  getUserData(){
-    var data = {
-       'name' : sessionStorage.collctCars,
-    }
-    return data;
+
+    ref.child('Users/'+uid).child('collectCars').on('child_added',function(data){
+        var id = data.val().id;
+        var carData
+        if (sessionStorage[id] === 'undefined' ||sessionStorage[id] === null ) {
+            ref.child('car_list/'+cityId).orderByChild('id').equalTo(id).once('value',function(data){
+                carData = data.val();
+            })
+        }else {
+            carData = sessionStorage[id];
+        }
+        //var data = {
+        //    'name' : sessionStorage.collectCars
+        //};
+    });
 }
 
 function getUserCarsWithColloct(){
-	collctCars = sessionStorage.collctCars;
+	collectCars = sessionStorage.collectCars;
 	ref.child('Users/'+uid).on('value',function(datas){
-		data.forEach(function(data){
+		datas.forEach(function(data){
 			var id = data.val().id;
 
-			if (typeof(collctCars[id]) != 'undefined' ||typeof(collctCars[id]) != null ) {
-				//添加缓存collctCars[id]的数据
+			if (sessionStorage[id] != 'undefined' ||sessionStorage[id] != null ) {
+				//添加缓存collectCars[id]的数据
 			}else {
-				ref.child('car_list/'+data.val().cityId).orderByChild('id').equeTo(data.val().id).on('value',function(data){
+				ref.child('car_list/'+data.val().cityId).orderByChild('id').equeTo(id).on('value',function(data){
 					//添加data的数据
 				});
 			}
@@ -137,7 +156,6 @@ function getCarListWithPrice(price) {
     var range = price.split('-');
     ref.child('car_list/' + cityId).orderByChild('price').startAt(parseFloat(range[0])).endAt(parseFloat(range[1])).on('value', function(datas) {
         datas.forEach(function(data) {
-            console.log(data.val())
             addCar(data.val(), name);
         });
     })
@@ -146,19 +164,18 @@ function getCarListWithPrice(price) {
 //通过品牌查询
 function getCarListWithBound(name) {
     clearCars(true);
-    ref.child('car_list/' + cityId).orderByChild('brand_name').equalTo(name).on("value", function(snapshot) {
-        snapshot.forEach(function(data) {
-            addCar(data.val(), "brand_name");
+    console.log("通过品牌查询"+ cityId);
+    ref.child('car_list/' + cityId).orderByChild('brand_name').equalTo(name).on("child_added", function(snapshot) {
+        //snapshot.forEach(function(data) {
+            addCar(snapshot.val(), "brand_name");
 
-        })
+        //})
     })
-    getCarListWithFirstVar('brand_name', name);
+    console.log("品牌" + name);
+    ref.child('carbrand/brand_list').orderByChild('brand_name').equalTo(name).on('child_added', function(snapshot) {
+        ref.child('series_list/').orderByKey().equalTo(snapshot.val().brand_id).on('value', function(datas) {
 
-    ref.child('carbrand/brand_list/').orderByChild('brand_name').equalto(name).limitToFirst().onece('value', function(data) {
-        ref.child('series_list/').orderByKey().equalTo(data.val().brand_id).once('value', function(datas) {
-            datas.forEach(function(data) {
-                console.log(data.val());
-            });
+
         })
     })
 }
@@ -178,7 +195,7 @@ function getCarsWithAscendPrice(isClear) {
     ref.child("car_list/" + cityId).orderByChild("price").startAt(parseFloat(lastCarVar)).limitToFirst(10).once("value", function(snapshot) {
         snapshot.forEach(function(data) {
             addCar(data.val(), "price");
-            console.log(data.val().price);
+            //console.log(data.val().price);
         })
     });
 }
@@ -205,13 +222,12 @@ function getCarsWithDescendVpr(isCleser) {
     });
 }
 //通过城市名列出车表  默认排序
-function getCityIdWithName(name) {
+function getCityIdWithName(name , data) {
     ref.child("AllCity/city_list").orderByChild("city_name").equalTo(name).on("value", function(snapshot) {
-        console.log(snapshot.val());
         snapshot.forEach(function(data){
             cityId = data.val().city_id;
-            console.log(cityId);
             getdifaultCas(true);
+            getUserCarsWithColloct();
         });
 
     });
@@ -270,6 +286,7 @@ function addCar(data, type) {
     if (typeof(carList[data.id]) != 'undefined') {
         return;
     }
+
     var carCell = newCarCell(data);
     $(".list-row").append(carCell);
     carList[data.id] = data;
@@ -278,6 +295,9 @@ function addCar(data, type) {
 }
 //汽车信息模板
 function newCarCell(data) {
+    var starClass = 'icon-star'
+    if(sessionStorage[data.id] != null)
+       starClass = 'icon-star active';
     var date = data.register_date.split(' ')[0];
     var time = date.split('-');
     var carModel = '<li class="modal-directive col-md-3" onclick="showModal(' + data.id + ')">' +
@@ -305,18 +325,16 @@ function newCarCell(data) {
         '<em>' + data.eval_price + '</em>万' +
 
         '</span>' +
-        '<i class="icon-star" onclick="onClick(this); event.stopPropagation()" name='+data.id+'>' + '</i>' +
+        '<i class="'+starClass+'" onclick="onClick(this); event.stopPropagation()" name='+data.id+'>' + '</i>' +
         '</p>' +
         '</article>' +
         '</div>'
-
     return carModel;
 }
 //显示汽车详细页面
 function showModal(index) {
     // var dom = event;
 
-    console.log(carList)
     $('#city').html(carList[index].city_name);
     var date = carList[index].register_date.split(' ')[0]
     var time = date.split('-');
@@ -368,6 +386,22 @@ $(document).ready(function(){
             $(".dropdown-info").slideUp()
         },500)
     })
+});
+//登陆成功以后显示储存的用户信息
+$(document).ready(function(){
+    if(sessionStorage.userName == ''){
+        $(".toggle-display").show()
+    }else {
+        $(".dropdown-container").show();
+        $(".account-name").text(sessionStorage.userName);
+    }
+});
+//下拉退出登陆
+$(".logout").on('click',function(){
+    var user = new User(sessionStorage.userName);
+    user.exitLogin();
+    sessionStorage.userName = '';
+    window.location.reload()
 });
 
 

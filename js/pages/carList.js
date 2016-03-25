@@ -7,12 +7,15 @@
   }
 })(jQuery);
 var cityName = $.getUrlParam('cityName');
-console.log(cityName)
+var brand = $.getUrlParam('brand');
+
+
 //进入该页面判断城市
 $(document).ready(function(){
-  getCityIdWithName(cityName);
+  getCityIdWithName(cityName,getCarListWithBound(brand));
+
   if($(".city-replace").is(":empty")){
-    $(".city-replace").text("城市");
+    $(".city-replace").text("厦门");
   }
 });
 //在当前页面切换城市
@@ -68,5 +71,10 @@ $(".vpr").on('click',function(){
 //  });
 //});
 function onClick(abc){
-  $(abc).toggleClass('active')
+  $(abc).toggleClass('active');
+  //触发收藏
+  var carId = $(abc).attr('name');
+  console.log(carId);
+  collectCarData(carId);
 }
+

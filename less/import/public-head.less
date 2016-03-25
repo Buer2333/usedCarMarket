@@ -1,0 +1,127 @@
+.carList-head{
+  .hLine(90px);
+  width: 100%;
+  box-shadow: 0 3px 5px rgba(60,60,60,.4);
+  background: #ffffff;
+  min-width: 1180px;
+  >h1{
+    display: inline-block;
+    margin:6px 25px;
+    a{
+      img{
+        height: 70px;
+        width: 250px;
+      }
+    }
+  }
+
+  >nav{
+    float: right;
+    margin-right: 80px;
+    >ul{
+      margin-bottom: 0;
+      li{
+        float: left;
+        a{
+          background: #ffffff;
+          height: 89px;
+          padding: 0 25px;
+          font-size: 16px;
+          &:hover,
+          &:focus,
+          &:active{
+            text-decoration: none;
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+}
+.toggle-display{
+  float: right;
+  padding: 30px;
+  line-height: 0;
+  display: none;
+  a{
+    display: inline-block;
+    .rounded(5px);
+    padding: 15px 40px;
+    &:first-child{
+      background-color: #21759B;
+      background-image: linear-gradient(to bottom, #2A95C5, #21759B);
+      border-color: #21759B #21759B #1E6A8D;
+      box-shadow: 0 1px 0 rgba(120, 200, 230, 0.5) inset;
+      color: #FFFFFF;
+      text-decoration: none;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    }
+    &:last-child{
+      background-color: #6b6b6b;
+      background-image: linear-gradient(to bottom, #2a2a2a, #6b6b6b);
+      border-color: #6b6b6b #6b6b6b #555555;
+      box-shadow: 0 1px 0 rgba(85, 85, 85, 0.5) inset;
+      color: #FFFFFF;
+      text-decoration: none;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    }
+  }
+  a+a{
+    margin-left: 10px;
+  }
+}
+
+.dropdown-container{
+  display: none;
+  float: right;
+  position: relative;
+  .account {
+    padding: 30px 15px;
+    line-height: 0;
+    cursor: pointer;
+    >em{
+      color: #000;
+      font-style: normal;
+    }
+    >span{
+      >b{
+        color: #000;
+      }
+      position: relative;
+      height: 30px;
+      line-height: 30px;
+      color: #818181;
+      i:before {
+        margin-left: 2px;
+        color: #000;
+      }
+      &:active,
+      &:hover,
+      &:focus{
+        color: #5dbcff;
+      }
+    }
+  }
+  .dropdown-info{
+    display: none;
+    float: right;
+    width: 100px;
+    position: absolute;
+    z-index: 99;
+    top: 60px;
+    right: 15px;
+    overflow: hidden;
+    box-shadow: 0 3px 5px 1px #818181;
+    background: #ffffff;
+    line-height: 0;
+    >li{
+      width: 100%;
+      height: 25px;
+      line-height: 25px;
+      text-align: right;
+      >a{
+        color: #333;
+      }
+    }
+  }
+}
