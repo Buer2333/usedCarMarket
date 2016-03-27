@@ -10973,3 +10973,14 @@ li {
 .car-list > ul li + li {
   margin-bottom: 15px;
 }
+.content-head {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: #ff761a;
+}
+.content-head i {
+  font-size: 24px;
+}

@@ -33,9 +33,12 @@
     </ul>
   </nav>
 </header>
-<section class="content-head"></section>
-<section class="car-list">
-    <ul class="list-row row list-update">
+<div class="container">
+  <section class="content-head">
+    <i class="iconfont icon-star"></i>我的收藏
+  </section>
+  <section class="car-list">
+    <ul class="list-row row list-update favorite-list">
 
     </ul>
     <section class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="target">
@@ -124,11 +127,16 @@
       </div>
     </section>
   </section>
+</div>
+
 
 <script src="js/lib/jquery.min.js"></script>
 <script src = "https://cdn.wilddog.com/js/client/current/wilddog.js" ></script>
 <script src="js/lib/bootstrap.min.js"></script>
 <script src="js/pages/network.js"></script>
 <script src="js/pages/myFavorite.js"></script>
+<script>
+  getUserCarsWithColloct()
+</script>
 </body>
 </html>

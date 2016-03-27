@@ -26,6 +26,8 @@ var uid = sessionStorage.id;
 function User(email, password) {
     this.email = email;
     this.password = password;
+    this.userName = '默认用户名';
+    this.tel= '123456'
 
     this.Login = function() { // 登陆
         console.log(this.email);
@@ -65,15 +67,20 @@ function User(email, password) {
         };
         //注册
     this.registerUser = function(email, password) {
-        ref.createUser({ email: this.email, password: this.password },
-            function(err, data) {
+        ref.createUser({email: this.email, password: this.password},
+            function (err, data) {
                 if (err != null) {
+                    alert("2")
                     //not success
                 } else {
-                    /**填写注册成功后的代码
-                     * 
-                     */
                     addUserData(data);
+                    alert("1")
+                }
+            })
+    }
+                    /**填写注册成功后的代码
+                     *
+                     *
                     console.log(data);
                 }
             });
@@ -82,9 +89,12 @@ function User(email, password) {
      * 添加用户信息
      */
     function addUserData(data){
+                        console.log(data)
     	var uid = data.uid.split(':')[1];
+                        console.log("user"+this.userName + 'pass'+ this.tel)
    		var dic = {
-   			'userName' : '没有名字'
+   			'userName' : this.userName,
+            'tel': this.tel
    		}
     	ref.child('Users/'+uid).set(dic);
     }
@@ -116,43 +126,51 @@ function collectCarData(id){
  * @return {[type]} [description]
  */
 
-function  getUserData(){
-
-    ref.child('Users/'+uid).child('collectCars').on('child_added',function(data){
-        var id = data.val().id;
-        var carData
-        if (sessionStorage[id] === 'undefined' ||sessionStorage[id] === null ) {
-            ref.child('car_list/'+cityId).orderByChild('id').equalTo(id).once('value',function(data){
-                carData = data.val();
-            })
-        }else {
-            carData = sessionStorage[id];
-        }
-        //var data = {
-        //    'name' : sessionStorage.collectCars
-        //};
-    });
-}
+//function  getUserData(){
+//
+//    ref.child('Users/'+uid).child('collectCars').on('child_added',function(data){
+//        var id = data.val().id;
+//        var cityid = data.val().cityId;
+//x        if (sessionStorage[id] == 'undefined' ||sessionStorage[id] == null ) {
+//            ref.child('car_list/'+cityid).orderByChild('id').equalTo(id).once('value',function(data){
+//                data.forEach(function(data){
+//                    console.log("uid = "+ uid+ "data= " +carData)
+//
+//                    carData = data.val();
+//                    addCar(carData,'price')
+//                })
+//
+//
+//            })
+//        }else {
+//            carData = sessionStorage[id];
+//            addCar(carData,'price')
+//
+//        }
+//        //var data = {
+//        //    'name' : sessionStorage.collectCars
+//        //};
+//    });
+//}
 
 function getUserCarsWithColloct(){
 	collectCars = sessionStorage.collectCars;
-	ref.child('Users/'+uid).on('value',function(datas){
+	ref.child('Users/'+uid).child('collectCars').on('value',function(datas){
 		datas.forEach(function(data){
 			var id = data.val().id;
 
-			if (sessionStorage[id] != 'undefined' ||sessionStorage[id] != null ) {
-				//添加缓存collectCars[id]的数据
-			}else {
-				ref.child('car_list/'+data.val().cityId).orderByChild('id').equeTo(id).on('value',function(data){
+				ref.child('car_list/'+data.val().cityId).orderByChild('id').equalTo(id).on('child_added',function(data){
 					//添加data的数据
-				});
-			}
+                    addCar(data.val(),'')
+                    console.log(data.val().title)
+                });
+
 		})
 	});
 }
-
+//通过价格查询
 function getCarListWithPrice(price) {
-    clear(true);
+    clearCars(true);
     var range = price.split('-');
     ref.child('car_list/' + cityId).orderByChild('price').startAt(parseFloat(range[0])).endAt(parseFloat(range[1])).on('value', function(datas) {
         datas.forEach(function(data) {
@@ -252,13 +270,13 @@ function getDataWithCityName(name,callBack) {
     ref.child("AllCity/city_list").orderByChild("city_name").equalTo(name).on("value", function(snapshot) {
         snapshot.forEach(function(data){
             cityId = data.val().city_id;
-            ref.child("car_list/" + cityId).orderByKey().limitToFirst(11).on("value", function(snapshot) {
+            ref.child("car_list/" + cityId).orderByKey().limitToFirst(200).on("value", function(snapshot) {
                 snapshot.forEach(function(data){
                     carLisKeys[data.val().id] = data.key();
                     carList.push(data.val());
                 });
 
-                callBack(carList);
+                //callBack(carList);
             });
 
         });
@@ -288,7 +306,8 @@ function addCar(data, type) {
     }
 
     var carCell = newCarCell(data);
-    $(".list-row").append(carCell);
+    $(".abc").append(carCell);
+    $(".favorite-list").append(carCell)
     carList[data.id] = data;
     lastCarVar = data[type];
 
@@ -389,7 +408,8 @@ $(document).ready(function(){
 });
 //登陆成功以后显示储存的用户信息
 $(document).ready(function(){
-    if(sessionStorage.userName == ''){
+    console.log(sessionStorage.userName);
+    if(sessionStorage.userName == undefined){
         $(".toggle-display").show()
     }else {
         $(".dropdown-container").show();
@@ -400,7 +420,6 @@ $(document).ready(function(){
 $(".logout").on('click',function(){
     var user = new User(sessionStorage.userName);
     user.exitLogin();
-    sessionStorage.userName = '';
     window.location.reload()
 });
 // 通过关键字搜书汽车
@@ -422,6 +441,9 @@ function searchCarsWithTag(tag) {
         })
     }
 }
+
+//
+
 
 // 通过价格获取汽车数据
 

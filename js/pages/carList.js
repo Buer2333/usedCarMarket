@@ -8,23 +8,42 @@
 })(jQuery);
 var cityName = $.getUrlParam('cityName');
 var brand = $.getUrlParam('brand');
+var price = $.getUrlParam('price');
+var text = $.getUrlParam('text');
+
 
 
 //进入该页面判断城市
 $(document).ready(function(){
-  getCityIdWithName(cityName,getCarListWithBound(brand));
-
+  console.log(cityName);
+  console.log($(".city-replace"));
   if($(".city-replace").is(":empty")){
-    $(".city-replace").text("厦门");
+    $(".city-replace").text(cityName);
   }
+  if (brand != null){
+  getDataWithCityName(cityName,getCarListWithBound(brand));
+    return
+  }
+  if (price != null){
+  getDataWithCityName(cityName, getCarListWithPrice(price));
+    return
+  }
+  if (text != null){
+    getDataWithCityName(cityName, searchCarsWithTag(text));
+    return
+  }
+  getCityIdWithName(cityName);
+
+
 });
 //在当前页面切换城市
 $(".city-in-group").on("click",function(event){
   cityName = $(this).text();
-  location.href = "carList.html?cityName="+cityName;
+  //location.href = "carList.html?cityName="+cityName;
+  getCityIdWithName(cityName);
+  //城市button的value取代
+  $(".city-replace").text(cityName);
 });
-//城市button的value取代
-$(".city-replace").text(cityName);
 //carList模版
 var carListTemplate = $('')
 //carList下拉列表
@@ -42,11 +61,11 @@ $(document).ready(function(){
     //console.log("页面的文档高度 ："+$(document).height());
     //console.log('浏览器的高度：'+$(window).height());
 
-    totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
-    if(($(document).height()-range) <= totalheight  && num != maxnum) {
-      getCarsWithAscendPrice(false);
-      num++;
-    }
+    //totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+    //if(($(document).height()-range) <= totalheight  && num != maxnum) {
+    //  getCarsWithAscendPrice(false);
+    //  num++;
+    //}
   });
 });
 //carList顺序筛选
@@ -77,4 +96,17 @@ function onClick(abc){
   console.log(carId);
   collectCarData(carId);
 }
-
+//筛选样式active&筛选功能
+$(".filter-brand").on("click",function(){
+  $(this).addClass('active').siblings().removeClass('active');
+  var filterBrand = $(this).text();
+  getCarListWithBound(filterBrand);
+});
+$(".filter-series").on("click",function(){
+  $(this).addClass('active').siblings().removeClass('active');
+  var filterSeries = $(this).text();
+  getCarListWithBoundId(filterSeries);
+});
+$(".filter-price").on("click",function(){
+  $(this).addClass('active').siblings().removeClass('active');
+});

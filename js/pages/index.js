@@ -13,4 +13,23 @@ $(".search-brand").on("click",function(){
   var brand = $(this).text();
   location.href = "carList.html?cityName=厦门&brand="+brand;
 })
-
+//index年份筛选
+$(".search-age").on("click",function(){
+  var age = $(this).text();
+  location.href = "carList.html?cityName=厦门&age="+age;
+})
+//index价格筛选
+$(".search-price").on("click",function(){
+  var price = $(this).text();
+  location.href = "carList.html?cityName=厦门&price="+price;
+})
+//搜索框搜索
+$(".search").on("click",function(){
+  var text = $(this).prev().val();
+  //if(isNaN(text)){
+  //  location.href = "carList.html?cityName=厦门&brand="+text+"万";
+  //}else {
+  //  location.href = "carList.html?cityName=厦门&price="+text;
+  //}
+  location.href = "carList.html?cityName=厦门&text="+text;
+})
