@@ -145,6 +145,34 @@ function collectCarData(id) {
 //        //};
 //    });
 //}
+//
+//
+//
+//添加一辆需求的汽车数据
+//传入一辆车的字典数据
+function addrequestCar(dic){
+    ref.child('requestCars').push().set(dic)
+}
+// 得到所有需求的汽车数据
+function getrequestCars(){
+    ref.child('requestCars').on('child_added',function(data){
+        /// data.val() 为申请查询的汽车的数据
+    })
+}
+
+// 添加要卖的车的数据
+function addPlacCar(dic){
+    ref.child('placCars').push().set(dic)
+}
+/**
+ * 传递一辆新车的数据必须包含汽车所属的城市
+ * 城市id取名cityId
+ * 
+ * 
+ */
+function 添加新车到汽车数据库中(data){
+    ref.child('car_list/'+data.cityId).push().set(data)
+}
 
 function getUserCarsWithColloct() {
     collectCars = sessionStorage.collectCars;
