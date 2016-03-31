@@ -33,3 +33,20 @@ $(".search").on("click",function(){
   //}
   location.href = "carList.html?cityName=厦门&text="+text;
 })
+
+$(".customize-sublime").on("click",function(){
+  brandText = $(".brand-text").val();
+  mileText = $(".mile-text").val();
+  messageText = $(".message-text").val();
+  nameText = $(".name-text").val();
+  telText = $(".tel-text").val();
+  var Cardic = {
+    "brand_name": brandText,
+    "mile_text":mileText,
+    "message_text":messageText,
+    "name_text":nameText,
+    "tel_text":telText
+  };
+  console.log(Cardic);
+  addrequestCar(Cardic);
+});

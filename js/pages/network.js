@@ -26,8 +26,6 @@ var uid = sessionStorage.id;
 function User(email, password) {
     this.email = email;
     this.password = password;
-    // this.userName = '默认用户名';
-    // this.tel = '123456'
 
     this.Login = function() { // 登陆
         console.log(this.email);
@@ -114,39 +112,6 @@ function collectCarData(id) {
 
 }
 
-/**
- * 获取用户收藏汽车的数据
- * @return {[type]} [description]
- */
-
-//function  getUserData(){
-//
-//    ref.child('Users/'+uid).child('collectCars').on('child_added',function(data){
-//        var id = data.val().id;
-//        var cityid = data.val().cityId;
-//x        if (sessionStorage[id] == 'undefined' ||sessionStorage[id] == null ) {
-//            ref.child('car_list/'+cityid).orderByChild('id').equalTo(id).once('value',function(data){
-//                data.forEach(function(data){
-//                    console.log("uid = "+ uid+ "data= " +carData)
-//
-//                    carData = data.val();
-//                    addCar(carData,'price')
-//                })
-//
-//
-//            })
-//        }else {
-//            carData = sessionStorage[id];
-//            addCar(carData,'price')
-//
-//        }
-//        //var data = {
-//        //    'name' : sessionStorage.collectCars
-//        //};
-//    });
-//}
-//
-//
 //
 //添加一辆需求的汽车数据
 //传入一辆车的字典数据
@@ -154,9 +119,15 @@ function addrequestCar(dic){
     ref.child('requestCars').push().set(dic)
 }
 // 得到所有需求的汽车数据
-function getrequestCars(){
-    ref.child('requestCars').on('child_added',function(data){
+function getrequestCars(fnc){
+    ref.child('requestCars').on('value',function(datas){
         /// data.val() 为申请查询的汽车的数据
+        cars = new Array;
+        datas.forEach(function(data){
+            cars.push(data.val())
+        })
+        //cars.push(datas.val())
+        fnc(cars)
     })
 }
 
@@ -164,13 +135,26 @@ function getrequestCars(){
 function addPlacCar(dic){
     ref.child('placCars').push().set(dic)
 }
+
+function getPriceCar(fnc){
+    ref.child('placCars').on('value',function(data){
+        /// data.val() 为申请查询的汽车的数据
+        cars = new Array;
+        data.forEach(function(data){
+            cars.push(data.val())
+        })
+        //cars.push(datas.val())
+        fnc(cars)
+    })
+}
 /**
  * 传递一辆新车的数据必须包含汽车所属的城市
  * 城市id取名cityId
  * 
  * 
  */
-function 添加新车到汽车数据库中(data){
+//添加新车到汽车数据库中
+function addNewCar(data){
     ref.child('car_list/'+data.cityId).push().set(data)
 }
 
@@ -292,13 +276,15 @@ function getDataWithCityName(name, callBack) {
     ref.child("AllCity/city_list").orderByChild("city_name").equalTo(name).on("value", function(snapshot) {
         snapshot.forEach(function(data) {
             cityId = data.val().city_id;
+
             ref.child("car_list/" + cityId).orderByKey().limitToFirst(200).on("value", function(snapshot) {
+                console.log(snapshot.val())
                 snapshot.forEach(function(data) {
                     carLisKeys[data.val().id] = data.key();
                     carList.push(data.val());
                 });
 
-                //callBack(carList);
+                callBack(carList);
             });
 
         });
