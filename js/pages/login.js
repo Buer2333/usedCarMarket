@@ -26,6 +26,6 @@ $(function(){
     var $passWord = $("#password").val();
     var user = new User($userName,$passWord);
     console.log(user);
-    //user.Login();
+    user.Login();
   })
 })

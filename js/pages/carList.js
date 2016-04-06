@@ -10,7 +10,7 @@ var cityName = $.getUrlParam('cityName');
 var brand = $.getUrlParam('brand');
 var price = $.getUrlParam('price');
 var text = $.getUrlParam('text');
-
+//var series = $.getUrlParam('series');
 
 
 //进入该页面判断城市
@@ -32,6 +32,9 @@ $(document).ready(function(){
     getDataWithCityName(cityName, searchCarsWithTag(text));
     return
   }
+  //if (text! = null){
+  //  getDataWithCityName(cityName,getCarListWithBoundId(text))
+  //}
   getCityIdWithName(cityName);
 
 
@@ -61,11 +64,11 @@ $(document).ready(function(){
     //console.log("页面的文档高度 ："+$(document).height());
     //console.log('浏览器的高度：'+$(window).height());
 
-    //totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
-    //if(($(document).height()-range) <= totalheight  && num != maxnum) {
-    //  getCarsWithAscendPrice(false);
-    //  num++;
-    //}
+    totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+    if(($(document).height()-range) <= totalheight  && num != maxnum) {
+      getCarsWithAscendPrice(false);
+      num++;
+    }
   });
 });
 //carList顺序筛选
@@ -102,11 +105,17 @@ $(".filter-brand").on("click",function(){
   var filterBrand = $(this).text();
   getCarListWithBound(filterBrand);
 });
+function obtainSeries(seriesText){
+  var filterSeries = $(seriesText).text()
+  getCarListWithBoundId(filterSeries);
+}
 $(".filter-series").on("click",function(){
   $(this).addClass('active').siblings().removeClass('active');
-  var filterSeries = $(this).text();
-  getCarListWithBoundId(filterSeries);
 });
 $(".filter-price").on("click",function(){
   $(this).addClass('active').siblings().removeClass('active');
+  var filterPrice = $(this).text();
+  getCarListWithPrice(filterPrice);
+
 });
+

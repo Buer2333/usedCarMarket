@@ -80,7 +80,8 @@ function User(email, password) {
                         console.log(dic);
                         ref.child('Users/' + uid).set(dic);
                     }
-                })
+                }
+            )
         }
         /**
          * 添加用户信息
@@ -122,7 +123,7 @@ function addrequestCar(dic){
 function getrequestCars(fnc){
     ref.child('requestCars').on('value',function(datas){
         /// data.val() 为申请查询的汽车的数据
-        cars = new Array;
+        var cars = new Array;
         datas.forEach(function(data){
             cars.push(data.val())
         })
@@ -139,7 +140,7 @@ function addPlacCar(dic){
 function getPriceCar(fnc){
     ref.child('placCars').on('value',function(data){
         /// data.val() 为申请查询的汽车的数据
-        cars = new Array;
+        var cars = new Array;
         data.forEach(function(data){
             cars.push(data.val())
         })
@@ -159,15 +160,15 @@ function addNewCar(data){
 }
 
 function getUserCarsWithColloct() {
-    collectCars = sessionStorage.collectCars;
+    var collectCars = sessionStorage.collectCars;
     ref.child('Users/' + uid).child('collectCars').on('value', function(datas) {
         datas.forEach(function(data) {
             var id = data.val().id;
 
             ref.child('car_list/' + data.val().cityId).orderByChild('id').equalTo(id).on('child_added', function(data) {
                 //添加data的数据
+                sessionStorage[data.val().id] = data.val();
                 addCar(data.val(), '')
-                console.log(data.val().title)
             });
 
         })
@@ -196,16 +197,28 @@ function getCarListWithBound(name) {
     })
     console.log("品牌" + name);
     ref.child('carbrand/brand_list').orderByChild('brand_name').equalTo(name).on('child_added', function(snapshot) {
-        ref.child('series_list/').orderByKey().equalTo(snapshot.val().brand_id).on('value', function(datas) {
+        var index = 0;
 
+        ref.child('series_list/').orderByKey().equalTo(snapshot.val().brand_id).on('child_added', function(data) {
+                //车系
+            $('#series').html('');
+            var model ='<label>车 系:</label><a class="hvr-radial-out filter-series active" href="#">不限</a>'
+            $('#series').append(model);
+            for(var index = 0 ;index<6 ; index++){
 
+                var li ='<a class="hvr-radial-out filter-series " href="#" onclick="obtainSeries(this)">'+data.val()[index].series_name+'</a>';
+                $('#series').append(li);
+                if(index==6) return;
+                console.log(data.val()[index])
+
+            }
         })
     })
 }
 //通过车系排序
 function getCarListWithBoundId(id) {
     clearCars(true);
-    ref.child('car_list/' + cityId).orderByChild('brand_id').equalTo(id).on('value', function(datas) {
+    ref.child('car_list/' + cityId).orderByChild('series_name').equalTo(id).on('value', function(datas) {
         datas.forEach(function(data) {
             addCar(data.val(), id);
         });
@@ -250,7 +263,7 @@ function getCityIdWithName(name, data) {
         snapshot.forEach(function(data) {
             cityId = data.val().city_id;
             getdifaultCas(true);
-            getUserCarsWithColloct();
+            //getUserCarsWithColloct();
         });
 
     });
