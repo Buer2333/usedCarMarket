@@ -37,6 +37,7 @@ function User(email, password) {
 
     function authHandler(error, authData) {
         if (error) {
+            alert("密码/用户名错误!")
             console.log("Login Failed!", error);
         } else {
             /**
@@ -62,13 +63,14 @@ function User(email, password) {
     this.exitLogin = function() {
         ref.unauth();
         sessionStorage.clear();
+        alert("退出成功!");
     };
     //注册
     this.registerUser = function(userName, tel) {
             ref.createUser({ email: this.email, password: this.password },
                 function(err, data) {
                     if (err != null) {
-                        alert("2")
+                        alert("注册失败!")
                             //not success
                     } else {
                         var uid = data.uid.split(':')[1];
@@ -210,7 +212,9 @@ function getCarListWithBound(name) {
                 $('#series').append(li);
                 if(index==6) return;
                 console.log(data.val()[index])
-
+                $(".filter-series").on("click",function(){
+                    $(this).addClass('active').siblings().removeClass('active');
+                });
             }
         })
     })
@@ -297,7 +301,7 @@ function getDataWithCityName(name, callBack) {
                     carList.push(data.val());
                 });
 
-                callBack(carList);
+                //callBack(carList);
             });
 
         });

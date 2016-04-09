@@ -106,12 +106,9 @@ $(".filter-brand").on("click",function(){
   getCarListWithBound(filterBrand);
 });
 function obtainSeries(seriesText){
-  var filterSeries = $(seriesText).text()
+  var filterSeries = $(seriesText).text();
   getCarListWithBoundId(filterSeries);
 }
-$(".filter-series").on("click",function(){
-  $(this).addClass('active').siblings().removeClass('active');
-});
 $(".filter-price").on("click",function(){
   $(this).addClass('active').siblings().removeClass('active');
   var filterPrice = $(this).text();
