@@ -24,6 +24,11 @@ function randomNum(minNum, maxNum) {
 
 $(document).ready(function(){
 //登陆注册
+  $(document).keyup(function(event){
+    if(event.keyCode ==13){
+      $("#login").trigger("click");
+    }
+  });
   $("#login").on("click",function(){
     var $userName = $("#username").val();
     var $passWord = $("#password").val();
@@ -38,6 +43,7 @@ $(document).ready(function(){
     if($userName != ""){
       var user = new User($userName,$passWord);
       user.resetPassword();
+      alert("密码重置成功,请登陆邮箱查询!")
     }else{
       alert("请输入邮箱地址!")
     }

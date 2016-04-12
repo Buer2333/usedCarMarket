@@ -66,11 +66,11 @@ function User(email, password) {
         alert("退出成功!");
     };
     //注册
-    this.registerUser = function(userName, tel) {
+    this.registerUser = function(userName, tel, callback) {
             ref.createUser({ email: this.email, password: this.password },
                 function(err, data) {
                     if (err != null) {
-                        alert("注册失败!")
+                        alert("注册失败!");
                             //not success
                     } else {
                         var uid = data.uid.split(':')[1];
@@ -81,6 +81,8 @@ function User(email, password) {
                         }
                         console.log(dic);
                         ref.child('Users/' + uid).set(dic);
+                        alert("注册成功!");
+                        location.href = "login.html";
                     }
                 }
             )

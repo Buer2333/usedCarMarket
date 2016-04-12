@@ -25,8 +25,6 @@ $("#register").on('click',function(){
   var registerUsername = $("#username").val();
   var registerTel = $("#tel").val();
   user = new User(registerEmail,registerPassword);
-  user.userName = registerUsername;
-  user.tel = registerTel;
-  user.registerUser();
 
+  user.registerUser(registerUsername,registerTel);
 })
