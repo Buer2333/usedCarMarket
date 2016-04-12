@@ -17,10 +17,13 @@ function randomNum(minNum, maxNum) {
       break;
   }
 }
+
+
+
+
+
+$(document).ready(function(){
 //登陆注册
-
-$(function(){
-
   $("#login").on("click",function(){
     var $userName = $("#username").val();
     var $passWord = $("#password").val();
@@ -28,4 +31,15 @@ $(function(){
     console.log(user);
     user.Login();
   })
+  //重置密码
+  $(".reset-password").on("click",function(){
+    var $userName = $("#username").val();
+    if($userName != ""){
+
+    }else{
+      alert("请输入邮箱地址!")
+    }
+  })
 })
+
+
