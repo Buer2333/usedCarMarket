@@ -34,8 +34,10 @@ $(document).ready(function(){
   //重置密码
   $(".reset-password").on("click",function(){
     var $userName = $("#username").val();
+    var $passWord = $("#password").val();
     if($userName != ""){
-
+      var user = new User($userName,$passWord);
+      user.resetPassword();
     }else{
       alert("请输入邮箱地址!")
     }

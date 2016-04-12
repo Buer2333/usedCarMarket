@@ -92,8 +92,17 @@ function User(email, password) {
         console.log(data)
 
     }
+    this.resetPassword = function (){
+        ref.resetPassword({'email':this.email},function(err){
+            if (err==null) {
+                console.log("成功")
+                // statement
+            }else{
+                console.log('失')
+            }
+        })
+    }
 }
-
 
 /**
  * 收藏汽车信息
