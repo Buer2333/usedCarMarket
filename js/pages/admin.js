@@ -26,8 +26,11 @@ var dtGridColumns_2_1_4 = [
     columnClass: 'text-center',
     headerStyle:'background:#00a2ca;color:white;',
     resolution: function (value, record, column, grid, dataNo, columnNo) {
+      //console.log(record)
+
       var content = '';
-      content += '<button class="btn btn-xs btn-default" onclick="alert(\'Edit User: ' + record.id + '\');"><i class="fa fa-edit"></i>  Edit</button>';
+      var data = record;
+      content += '<button class="btn btn-xs btn-default" onclick="showEditModal(' + data.id + ')" data-toggle="modal"><i class="fa fa-edit"></i>  Edit</button>';
       content += '  ';
       content += '<button class="btn btn-xs btn-danger" onclick=" delectCarWithCarId(' + record.id + ');"><i class="fa fa-trash-o"></i>  Delete</button>';
       return content;
@@ -129,7 +132,7 @@ var dtGridColumns_2_1_5 = [
     headerStyle:'background:#00a2ca;color:white;',
     resolution: function (value, record, column, grid, dataNo, columnNo) {
       var content = '';
-      content += '<button class="btn btn-xs btn-default" onclick="alert(\'Edit User: ' + record.id + '\');"><i class="fa fa-edit"></i>  Edit</button>';
+      content += '<button class="btn btn-xs btn-default" onclick="editCar(cityId,record.id,record)"><i class="fa fa-edit"></i>  Edit</button>';
       content += '  ';
       content += '<button class="btn btn-xs btn-danger" onclick=" delectCarWithCarId(' + record.id + ');"><i class="fa fa-trash-o"></i>  Delete</button>';
       return content;
@@ -163,13 +166,7 @@ var dtGridColumns_2_1_6 = [
     }
   }
 ];
-$(document).ready(function(){
-
-})
 
 
 
-
-//城市切换刷新页面
-//$(".tooltips").on
 

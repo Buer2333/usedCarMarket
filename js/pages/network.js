@@ -5,10 +5,10 @@ var cityId = 44;
 var lastCarVar = 0;
 var brand = ''
 var carLisKeys = new Array();
-var ascend = {
-    price: '价格',
-}
 var uid = sessionStorage.id;
+var index = 0;
+
+
 //var collectCars = sessionStorage.collectCars
 
 // 注册回调方法，在每次终端用户认证状态发生改变时，回调方法被执行。
@@ -123,7 +123,6 @@ function collectCarData(id) {
             ref.child('Users/' + uid).child('collectCars/' + id).remove();
         }
     })
-
 }
 
 //
@@ -160,6 +159,53 @@ function getPriceCar(fnc){
         //cars.push(datas.val())
         fnc(cars)
     })
+}
+
+//添加比较车辆到Session
+function saveCarToSession(id,car) {
+    var compareCar1;
+    var compareCar2;
+    data = carList[id]
+    var str = id+':'+JSON.stringify(data)
+    try{
+         compareCar2 =  sessionStorage.compareCar2.split(':')[0];
+
+    }catch (err){
+        compareCar2 = ''
+    }
+    try{
+        compareCar1=sessionStorage.compareCar1.split(':')[0];
+
+    }catch (err){
+        compareCar1=''
+    }
+    if (compareCar2==(id+'')){
+        sessionStorage.removeItem('compareCar2');
+        return;
+    }
+    if (compareCar1==(id+'')){
+        sessionStorage.removeItem('compareCar1');
+        return;
+    }
+    data = carList[id]
+    var str = id+':'+JSON.stringify(data)
+    if (sessionStorage.compareCar1 == undefined &&(id+'')!=compareCar2){
+        sessionStorage.compareCar1 = str;
+        alert("添加成功!");
+    }else if (sessionStorage.compareCar2 == undefined&&(id+'')!=compareCar1){
+        sessionStorage.compareCar2 = str;
+        alert("添加成功!");
+
+    }else {
+        alert('不能添加')
+        $(car).removeClass('active');
+    }
+
+
+
+
+
+    console.log(id)
 }
 /**
  * 传递一辆新车的数据必须包含汽车所属的城市
@@ -312,7 +358,7 @@ function getDataWithCityName(name, callBack) {
                     carList.push(data.val());
                 });
 
-                //callBack(carList);
+                callBack(carList);
             });
 
         });
@@ -370,8 +416,8 @@ function newCarCell(data) {
         '<p class="list-price">' +
         '<span>' +
         '<em>' + data.price + '</em>万' +
-
         '</span>' +
+        '<a class="btn btn-default text-right btn-sm compare" onclick="addToCompare(this); event.stopPropagation()" name=' + data.id + '>'+'加入对比'+'</a>'+
         '</p>' +
         '<p class="list-bottom">' +
         '<i class="icon-car">' + '</i>' +
@@ -414,6 +460,19 @@ function showModal(index) {
     $('#eval_price').html(carList[index].eval_price + '万');
     $('#next_year_eval_price').html(carList[index].next_year_eval_price + '万');
     $('#target').modal('show');
+}
+
+//显示编辑汽车信息modal
+function showEditModal(index){
+    data = carList[carLisKeys[index]]
+    $("#input_text1").attr('value',data.model_name);
+    $("#input_text2").attr('value',data.mile_age);
+    $("#input_text3").attr('value',data.register_date);
+    $("#input_text4").attr('value',data.brand_name);
+    $("#input_text5").attr('value',data.series_name);
+    $("#input_text6").attr('value',data.price);
+    $('#edit-modal').modal('show');
+    index = carLisKeys[index];
 }
 
 
@@ -484,6 +543,7 @@ function searchCarsWithTag(tag) {
 // 通过价格获取汽车数据
 
 function getRangeCarsWithPice(pice) {
+    console.log('afsdf')
 
     ref.child('car_list/' + cityId).orderByChild('price').startAt(parseFloat(pice) - 5).endAt(parseFloat(pice) + 5).on('value', function(datas) {
         datas.forEach(function(data) {
@@ -491,4 +551,22 @@ function getRangeCarsWithPice(pice) {
             addCar(data.val(), name);
         });
     })
+}
+
+
+
+
+
+function save(){
+    console.log('car_list/' + cityId + '/' + index);
+    console.log($("#input_text1")[0].value)
+    ref.child('car_list/' + cityId + '/' + index).update({
+        "model_name":$("#input_text1")[0].value,
+        "mile_age":$("#input_text2")[0].value,
+        "register_date":$("#input_text3")[0].value,
+        "brand_name":$("#input_text4")[0].value,
+        "series_name":$("#input_text5")[0].value,
+        "price":$("#input_text6")[0].value
+    });
+    location.reload()
 }

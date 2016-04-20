@@ -15,6 +15,8 @@ var text = $.getUrlParam('text');
 
 //进入该页面判断城市
 $(document).ready(function(){
+  //清空缓存
+  sessionStorage.clear();
   console.log(cityName);
   console.log($(".city-replace"));
   if($(".city-replace").is(":empty")){
@@ -98,6 +100,13 @@ function onClick(abc){
   var carId = $(abc).attr('name');
   console.log(carId);
   collectCarData(carId);
+}
+//加入对比
+
+function addToCompare(car){
+  $(car).toggleClass('active')
+  var carId = $(car).attr('name');
+  saveCarToSession(carId,car);
 }
 //筛选样式active&筛选功能
 $(".filter-brand").on("click",function(){

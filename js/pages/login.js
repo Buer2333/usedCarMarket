@@ -32,9 +32,12 @@ $(document).ready(function(){
   $("#login").on("click",function(){
     var $userName = $("#username").val();
     var $passWord = $("#password").val();
-    var user = new User($userName,$passWord);
-    console.log(user);
-    user.Login();
+    if($userName == 'admin'&& $passWord == 'admin'){
+      location.href='admin.html'
+    }else {
+      var user = new User($userName,$passWord);
+      user.Login();
+    }
   })
   //重置密码
   $(".reset-password").on("click",function(){
