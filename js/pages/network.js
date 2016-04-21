@@ -3,12 +3,10 @@ var carList = new Array();
 var getCarBrandList = "http://api.che300.com/service/getCarBrandList?token=60998c88e30c16609dbcbe48f3216df3"
 var cityId = 44;
 var lastCarVar = 0;
-var brand = ''
+var brand = '';
 var carLisKeys = new Array();
 var uid = sessionStorage.id;
 var index = 0;
-
-
 //var collectCars = sessionStorage.collectCars
 
 // 注册回调方法，在每次终端用户认证状态发生改变时，回调方法被执行。
@@ -130,35 +128,60 @@ function collectCarData(id) {
 //传入一辆车的字典数据
 function addrequestCar(dic){
     ref.child('requestCars').push().set(dic)
+    alert("提交成功!")
+    location.reload()
 }
 // 得到所有需求的汽车数据
 function getrequestCars(fnc){
-    ref.child('requestCars').on('value',function(datas){
+    ref.child('requestCars').on('value',function(data){
         /// data.val() 为申请查询的汽车的数据
-        var cars = new Array;
-        datas.forEach(function(data){
-            cars.push(data.val())
+        var cars = [];
+        data.forEach(function(data){
+            var carData = data.val();
+            carData.key = data.key();
+            console.log(carData);
+            cars.push(carData)
         })
-        //cars.push(datas.val())
-        fnc(cars)
+        fnc(cars);
     })
 }
 
 // 添加要卖的车的数据
 function addPlacCar(dic){
     ref.child('placCars').push().set(dic)
+    alert("提交成功!")
+    location.reload()
 }
-
+//查询卖车数据
 function getPriceCar(fnc){
     ref.child('placCars').on('value',function(data){
         /// data.val() 为申请查询的汽车的数据
-        var cars = new Array;
+        var cars = [];
         data.forEach(function(data){
-            cars.push(data.val())
-        })
+            //data.val().key = data.key();
+            var carData = data.val();
+            carData.key = data.key();
+
+            //carWithSellList[data.key()] = data.val();
+            cars.push(carData);
+        });
         //cars.push(datas.val())
         fnc(cars)
     })
+}
+
+//删除卖车信息
+function deletePlacCar (key){
+    console.log('placeCars/'+key)
+    ref.child('placCars/'+key).set(null);
+    location.reload()
+
+}
+//删除需求信息
+function deleteRequestCar (key){
+    ref.child('requestCars/'+key).set(null);
+    location.reload()
+
 }
 
 //添加比较车辆到Session

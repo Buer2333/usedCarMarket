@@ -134,7 +134,7 @@ var dtGridColumns_2_1_5 = [
       var content = '';
       content += '<button class="btn btn-xs btn-default" onclick="editCar(cityId,record.id,record)"><i class="fa fa-edit"></i>  Edit</button>';
       content += '  ';
-      content += '<button class="btn btn-xs btn-danger" onclick=" delectCarWithCarId(' + record.id + ');"><i class="fa fa-trash-o"></i>  Delete</button>';
+      content += '<button class="btn btn-xs btn-danger" onclick=" deletePlacCar(\''+record.key+'\');"><i class="fa fa-trash-o"></i>  Delete</button>';
       return content;
     }
   }
@@ -161,7 +161,7 @@ var dtGridColumns_2_1_6 = [
       var content = '';
       content += '<button class="btn btn-xs btn-default" onclick="alert(\'Edit User: ' + record.id + '\');"><i class="fa fa-edit"></i>  Edit</button>';
       content += '  ';
-      content += '<button class="btn btn-xs btn-danger" onclick=" delectCarWithCarId(' + record.id + ');"><i class="fa fa-trash-o"></i>  Delete</button>';
+      content += '<button class="btn btn-xs btn-danger" onclick=" deleteRequestCar(\'' + record.key + '\');"><i class="fa fa-trash-o"></i>  Delete</button>';
       return content;
     }
   }
