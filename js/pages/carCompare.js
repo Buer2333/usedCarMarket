@@ -73,7 +73,7 @@ $.each(compareCar,function(index){
       '<div class="col-md-6">'+
       '<div class="row row-mb">'+
       '<label class="col-md-4 text-right">车身颜色</label>'+
-      '<div class="col-md-8" class="color">'+datas.color+'</div>'+
+      '<div class="col-md-8" class="color">'+compareCar[index].color+'</div>'+
       '</div>'+
       '<div class="row row-mb">'+
       '<label class="col-md-4 text-right">变速箱</label>'+

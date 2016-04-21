@@ -16,7 +16,8 @@ var text = $.getUrlParam('text');
 //进入该页面判断城市
 $(document).ready(function(){
   //清空缓存
-  sessionStorage.clear();
+  sessionStorage.removeItem('compareCar1');
+  sessionStorage.removeItem('compareCar2');
   console.log(cityName);
   console.log($(".city-replace"));
   if($(".city-replace").is(":empty")){
