@@ -80,7 +80,7 @@ function User(email, password) {
                         console.log(dic);
                         ref.child('Users/' + uid).set(dic);
                         alert("注册成功!");
-                        location.href = "login.html";
+                        location.href = "index.html";
                     }
                 }
             )
