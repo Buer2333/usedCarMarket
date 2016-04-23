@@ -132,7 +132,7 @@ var dtGridColumns_2_1_5 = [
     headerStyle:'background:#00a2ca;color:white;',
     resolution: function (value, record, column, grid, dataNo, columnNo) {
       var content = '';
-      content += '<button class="btn btn-xs btn-default" onclick="editCar(cityId,record.id,record)"><i class="fa fa-edit"></i>  Edit</button>';
+
       content += '  ';
       content += '<button class="btn btn-xs btn-danger" onclick=" deletePlacCar(\''+record.key+'\');"><i class="fa fa-trash-o"></i>  Delete</button>';
       return content;
@@ -159,7 +159,7 @@ var dtGridColumns_2_1_6 = [
     headerStyle:'background:#00a2ca;color:white;',
     resolution: function (value, record, column, grid, dataNo, columnNo) {
       var content = '';
-      content += '<button class="btn btn-xs btn-default" onclick="alert(\'Edit User: ' + record.id + '\');"><i class="fa fa-edit"></i>  Edit</button>';
+
       content += '  ';
       content += '<button class="btn btn-xs btn-danger" onclick=" deleteRequestCar(\'' + record.key + '\');"><i class="fa fa-trash-o"></i>  Delete</button>';
       return content;

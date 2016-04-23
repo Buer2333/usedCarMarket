@@ -41,9 +41,7 @@ function User(email, password) {
             /**
              *填写登陆成功后的代码
              */
-            uid = authData.uid.split(':')[1];
-            console.log(uid)
-            sessionStorage.id = uid;
+            uid = authData.uid.split(':')[1];sessionStorage.id = uid;
             localStorage.token = authData.token;
             sessionStorage.userName = email;
             location.replace(document.referrer);
@@ -64,13 +62,14 @@ function User(email, password) {
         alert("退出成功!");
     };
     //注册
-    this.registerUser = function(userName, tel, callback) {
+    this.registerUser = function(userName, tel) {
             ref.createUser({ email: this.email, password: this.password },
                 function(err, data) {
                     if (err != null) {
                         alert("注册失败!");
                             //not success
                     } else {
+                        //alert(data.uid);
                         var uid = data.uid.split(':')[1];
                         console.log("user" + userName + 'pass' + tel)
                         var dic = {
@@ -88,20 +87,20 @@ function User(email, password) {
         /**
          * 添加用户信息
          */
-    function addUserData(data) {
-        console.log(data)
+   // function addUserData(data) {
+    //    console.log(data)
 
-    }
-    this.resetPassword = function (){
-        ref.resetPassword({'email':this.email},function(err){
-            if (err==null) {
-                console.log("成功")
-                // statement
-            }else{
-                console.log('失')
-            }
-        })
-    }
+   // }
+   // this.resetPassword = function (){
+   //     ref.resetPassword({'email':this.email},function(err){
+     //       if (err==null) {
+        //        console.log("成功")
+     //           // statement
+     //       }else{
+       //         console.log('失')
+       //     }
+     //   })
+   // }
 }
 
 /**
@@ -172,7 +171,6 @@ function getPriceCar(fnc){
 
 //删除卖车信息
 function deletePlacCar (key){
-    console.log('placeCars/'+key)
     ref.child('placCars/'+key).set(null);
     location.reload()
 
@@ -185,16 +183,16 @@ function deleteRequestCar (key){
 }
 
 //添加比较车辆到Session
-function saveCarToSession(id,car) {
-    var compareCar1;
-    var compareCar2;
-    data = carList[id]
-    var str = id+':'+JSON.stringify(data)
-    try{
-         compareCar2 =  sessionStorage.compareCar2.split(':')[0];
+function saveCarToSession(id,car) {//id当前点击对比的汽车id,
+
+    var compareCar1;//对比汽车的第第一辆汽车的id;
+    var compareCar2;//对比汽车的第第二辆汽车的id
+
+    try{//try异常处理机制,当try内容执行失败的时候将会执行catch里的内容
+         compareCar2 =  sessionStorage.compareCar2.split(':')[0];//将session存储的字符串通过':分割成2个数组,第一个是汽车id,第二个是汽车对象字符串数据
 
     }catch (err){
-        compareCar2 = ''
+        compareCar2 = ''//如果try异常 默认设为空字符串
     }
     try{
         compareCar1=sessionStorage.compareCar1.split(':')[0];
@@ -202,7 +200,8 @@ function saveCarToSession(id,car) {
     }catch (err){
         compareCar1=''
     }
-    if (compareCar2==(id+'')){
+    if (compareCar2==(id+'')){//判断session储存的汽车对比汽车的id是不是和当前点击对比按钮的汽车id一致
+        //如果一致 将删除session中对应的汽车数据,取消对比
         sessionStorage.removeItem('compareCar2');
         return;
     }
@@ -210,9 +209,12 @@ function saveCarToSession(id,car) {
         sessionStorage.removeItem('compareCar1');
         return;
     }
-    data = carList[id]
-    var str = id+':'+JSON.stringify(data)
-    if (sessionStorage.compareCar1 == undefined &&(id+'')!=compareCar2){
+    data = carList[id]//通过id重carList中获取当前汽车的对象数据
+    var str = id+':'+JSON.stringify(data)//讲data对象序列化城json字符串拼接成   汽车的ID:对象数据字符串格式 如
+    //114399233:{"audit_date":"2016-06-01","brand_id":"25","brand_name":"大众","car_desc":"这辆车是我14年购买的，平时主要用来出行代步和家用，到现在跑了2万多公里。平时用车很爱惜，我会经常打理，外观和内饰都保持的很好。我这车高尔夫动力强劲，底盘扎实平稳，操控灵活，乘坐舒适，适合上下班代步和居家使用，喜欢这辆车的朋友请跟我联系！","car_service":"62-63+64-","car_source":"renrenche","car_status":"1","city":"44","city_name":"厦门","color":"红色","contactor":"陈先生","dealer_id":"0","eval_price":"12.0358","gear_type":"双离合变速箱(DCT)","grab_time":"2016-03-01 13:33:47","id":"114399233","inspected":"1","is_trusted":"1","level":"3","liter":"1.4T","match_rate":"5","match_step":"0","mile_age":2.03,"model_id":"20643","model_name":"2014款 高尔夫 1.4TSI 自动豪华型","model_price":"16.59","next_year_eval_price":"11.098792716978222","pic_url":"https://img2.rrcimg.com/o_1acoaaj243896423089388011390315123.jpg?imageView2/1/w/290/h/185","post_time":"2016-03-01 00:00:00","price":14.3,"prov":"14","qa_flag":"1","qa_price":"0","reg_year":"2014","register_date":"2014-06-01 00:00:00","residual_value":"0.9221449792193213","seller_type":"1","series_id":"331","series_name":"高尔夫","tel":"4000520651","title":"大众-高尔夫 2014款 1.4TSI 自动豪华型","tlci_date":"2016-06-01","update_time":"2016-03-01 00:00:10","url":"http://www.che300.com/car/show/114399233.htm","url_hash":"11528F32C6953F57823AECBC1554C387","vpr":0.8416674,"weight":"200"}
+    //如果session 中有一个对比没有数据或者都没有数据是执行下面方法
+    if (sessionStorage.compareCar1 == undefined &&(id+'')!=compareCar2){//如果第一个对比汽车的数据不等于空或者不等于第二辆的对比汽车数据执行下面
+        //将str数据存储到seesion中的第一辆对比数据
         sessionStorage.compareCar1 = str;
         alert("添加成功!");
     }else if (sessionStorage.compareCar2 == undefined&&(id+'')!=compareCar1){
@@ -220,6 +222,7 @@ function saveCarToSession(id,car) {
         alert("添加成功!");
 
     }else {
+        //如果添加重复的汽车数据或者对比汽车1,2中都有了数据执行下面方法。
         alert('不能添加')
         $(car).removeClass('active');
     }
@@ -279,23 +282,21 @@ function getCarListWithBound(name) {
     })
     console.log("品牌" + name);
     ref.child('carbrand/brand_list').orderByChild('brand_name').equalTo(name).on('child_added', function(snapshot) {
-        var index = 0;
 
         ref.child('series_list/').orderByKey().equalTo(snapshot.val().brand_id).on('child_added', function(data) {
                 //车系
             $('#series').html('');
             var model ='<label>车 系:</label><a class="hvr-radial-out filter-series active" href="#">不限</a>'
             $('#series').append(model);
-            for(var index = 0 ;index<6 ; index++){
+            for(var number = 0 ;number<6 ; number++){
 
-                var li ='<a class="hvr-radial-out filter-series " href="#" onclick="obtainSeries(this)">'+data.val()[index].series_name+'</a>';
+                var li ='<a class="hvr-radial-out filter-series " href="#" onclick="obtainSeries(this)">'+data.val()[number].series_name+'</a>';
                 $('#series').append(li);
-                if(index==6) return;
-                console.log(data.val()[index])
-                $(".filter-series").on("click",function(){
-                    $(this).addClass('active').siblings().removeClass('active');
-                });
+
             }
+            $(".filter-series").on("click",function(){
+                $(this).addClass('active').siblings().removeClass('active');
+            });
         })
     })
 }
@@ -390,7 +391,6 @@ function getDataWithCityName(name, callBack) {
 }
 
 function delectCarWithCarId(carId) {
-    console.log("carLisKeys=" + carLisKeys[carId] + "cityId = " + cityId);
     ref.child('car_list/' + cityId + '/' + carLisKeys[carId]).remove();
     alert("删除成功!");
     grid_2_1_4.load();
