@@ -1,9 +1,9 @@
 var ref = new Wilddog("https://ttrcar.wilddogio.com/"); //野狗数据根地址
 var carList = new Array();
-var getCarBrandList = "http://api.che300.com/service/getCarBrandList?token=60998c88e30c16609dbcbe48f3216df3"
+//var getCarBrandList = "http://api.che300.com/service/getCarBrandList?token=60998c88e30c16609dbcbe48f3216df3"
 var cityId = 44;
 var lastCarVar = 0;
-var brand = '';
+//var brand = '';
 var carLisKeys = new Array();
 var uid = sessionStorage.id;
 var index = 0;
@@ -31,11 +31,11 @@ function User(email, password) {
             email: this.email,
             password: this.password
         }, authHandler);
-    }
+    };
 
     function authHandler(error, authData) {
         if (error) {
-            alert("密码/用户名错误!")
+            alert("密码/用户名错误!");
             console.log("Login Failed!", error);
         } else {
             /**
@@ -91,16 +91,17 @@ function User(email, password) {
     //    console.log(data)
 
    // }
-   // this.resetPassword = function (){
-   //     ref.resetPassword({'email':this.email},function(err){
-     //       if (err==null) {
-        //        console.log("成功")
-     //           // statement
-     //       }else{
-       //         console.log('失')
-       //     }
-     //   })
-   // }
+        //重置密码
+    this.resetPassword = function (){
+        ref.resetPassword({'email':this.email},function(err){
+            if (err==null) {
+                console.log("成功")
+                // statement
+            }else{
+                console.log('失')
+            }
+        })
+    }
 }
 
 /**
